@@ -1,1 +1,3 @@
-src/client/libs/*
+src/server/public/*
+node_modules
+dist/*

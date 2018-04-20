@@ -8,7 +8,7 @@ mongoose.Promise = bluebird
 const DB_URL = 'mongodb://gcvin:gcvin@ds119565.mlab.com:19565/mongo'
 // const DB_URL = config.DB.url
 
-mongoose.connect(DB_URL, {useMongoClient: true})
+mongoose.connect(DB_URL)
 
 mongoose.connection.on('connected', function () {
     console.log('Mongoose connection open to ' + DB_URL)

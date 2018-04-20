@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:vue/essential",
+    "@vue/standard"
+  ],
+  "rules": {
+    "indent": ["error", 4],
+    "vue/no-parsing-error": ["error", {
+      "x-invalid-end-tag": false
+    }],
+    "no-new": "off"
+  }
+}

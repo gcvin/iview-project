@@ -8,18 +8,18 @@
     </div>
 </template>
 <script>
-    export default {
-        data () {
-            return {}
-        },
-        mounted () {
+export default {
+    data () {
+        return {}
+    },
+    mounted () {
 
-        },
-        beforeDestroy () {
+    },
+    beforeDestroy () {
 
-        },
-        methods: {
+    },
+    methods: {
 
-        }
     }
+}
 </script>

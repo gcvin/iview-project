@@ -50,7 +50,7 @@ export default {
                 },
                 {
                     title: '登录时间',
-                    render: (h, params) => moment(params.row.loginDate).format('YYYY-MM-DD HH:mm:ss')
+                    render: (h, params) => h('span', moment(params.row.loginDate).format('YYYY-MM-DD HH:mm:ss'))
                 },
                 {
                     title: '操作',

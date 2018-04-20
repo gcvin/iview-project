@@ -42,28 +42,28 @@ export default {
                     render: (h, params) => {
                         let message = params.row.commit.message
                         let newline = message.indexOf('\n')
-                        return newline > 0 ? message.slice(0, newline) : message
+                        return h('span', newline > 0 ? message.slice(0, newline) : message)
                     }
                 },
                 {
                     title: 'Author',
                     render: (h, params) => {
                         if (params.row.author) {
-                            return params.row.author.login
+                            return h('span', params.row.author.login)
                         }
-                        return params.row.commit.author.name
+                        return h('span', params.row.commit.author.name)
                     }
                 },
                 {
                     title: 'Email',
                     render: (h, params) => {
-                        return params.row.commit.author.email
+                        return h('span', params.row.commit.author.email)
                     }
                 },
                 {
                     title: 'Date',
                     render: (h, params) => {
-                        return params.row.commit.author.date
+                        return h('span', params.row.commit.author.date)
                     }
                 }
             ]

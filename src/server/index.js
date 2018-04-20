@@ -5,12 +5,8 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import session from 'express-session'
-import webpack from 'webpack'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import webpackHotMiddleware from 'webpack-hot-middleware'
 
 import router from './router'
-import config from '../../webpack.dev.config'
 import mongoose from './db'
 
 const app = express()
@@ -34,15 +30,6 @@ app.use(session({
 }))
 app.use(express.static(path.join(__dirname, 'public')))
 
-const compiler = webpack(config)
-
-app.use(webpackDevMiddleware(compiler, {
-    publicPath: config.output.publicPath,
-    stats: { colors: true }
-}))
-
-app.use(webpackHotMiddleware(compiler))
-
 app.use('/', router)
 
 // catch 404 and forward to error handler
@@ -62,6 +49,8 @@ app.use(function (err, req, res, next) {
     })
 })
 
-app.listen(4000)
+app.listen(4000, function () {
+    console.log('Server listening at http://localhost:4000')
+})
 
 export default app
