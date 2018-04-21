@@ -4,7 +4,7 @@
         <br />
         <br />
         <Table :columns="columns" :data="users"></Table>
-        <Page url="?page=#num#" :current="page" :size="10" :total="101" :number="5"></Page>
+        <Page url="?page=#num#" :current="page" :size="10" :total="total" :number="5"></Page>
         <Modal
             v-model="showModal"
             title="编辑用户"
@@ -87,6 +87,7 @@ export default {
                 }
             ],
             users: [],
+            total: 0,
             rules: {
                 userName: [
                     { required: true, message: '姓名不能为空', trigger: 'blur' }
@@ -119,8 +120,9 @@ export default {
     },
     methods: {
         getUsers () {
-            this.$http.get('/user/get-user').then(res => {
-                this.users = res.data
+            this.$http.get('/user/get-user' + window.location.search).then(res => {
+                this.users = res.data.users
+                this.total = res.data.total
             })
         },
         handleEdit (user) {

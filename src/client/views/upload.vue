@@ -28,7 +28,7 @@
             action="/ajax/qnupload"
             style="display: inline-block;width:58px;">
             <div style="width: 58px;height:58px;line-height: 58px;">
-                <Icon type="camera" size="20"></Icon>
+                <Icon type="camera" size="20" style="line-height: 58px;"></Icon>
             </div>
         </Upload>
         <Modal title="查看图片" v-model="visible">

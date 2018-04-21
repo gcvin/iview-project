@@ -15,6 +15,7 @@
 <script>
 import pdfMake from 'pdfmake/build/pdfmake.min.js'
 import pdfFonts from 'pdfmake/build/vfs_fonts.js'
+import moment from 'moment'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -40,7 +41,7 @@ export default {
                 {
                     title: 'Message',
                     render: (h, params) => {
-                        let message = params.row.commit.message
+                        let message = params.row.commit.message.replace(/^Merge\spull\srequest\s(#\d+).*/, '$1')
                         let newline = message.indexOf('\n')
                         return h('span', newline > 0 ? message.slice(0, newline) : message)
                     }
@@ -63,7 +64,7 @@ export default {
                 {
                     title: 'Date',
                     render: (h, params) => {
-                        return h('span', params.row.commit.author.date)
+                        return h('span', moment(params.row.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
                     }
                 }
             ]
@@ -96,7 +97,7 @@ export default {
                 tmp.push(commit.commit.message.split('\n').pop())
                 tmp.push(commit.commit.author.name)
                 tmp.push(commit.commit.author.email)
-                tmp.push(commit.commit.author.date)
+                tmp.push(moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
                 return tmp
             })
             let docDefinition = {

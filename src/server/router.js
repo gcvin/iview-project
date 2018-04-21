@@ -37,8 +37,12 @@ router.get('/ajax/get-vercode', function (req, res, next) {
 })
 
 router.get('/user/get-user', function (req, res, next) {
+    const page = Number(req.query.page) || 1
     User.find({}).then(users => {
-        return res.json(users)
+        return res.json({
+            users: users.slice(page * 10 - 10, page * 10),
+            total: users.length
+        })
     }).catch(err => {
         console.log('Error:' + err)
     })
