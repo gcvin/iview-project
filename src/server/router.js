@@ -1,4 +1,5 @@
 import express from 'express'
+import path from 'path'
 import svgCaptcha from 'svg-captcha'
 import qn from 'qn'
 import User from './schema/user.js'
@@ -21,6 +22,10 @@ router.get('/', function (req, res, next) {
 
 router.get('/stats', function (req, res, next) {
     res.render('stats')
+})
+
+router.get('/minivue', function (req, res, next) {
+    res.sendfile(path.join(__dirname, './views/minivue.html'))
 })
 
 router.get('/ajax/get-slogan', function (req, res, next) {

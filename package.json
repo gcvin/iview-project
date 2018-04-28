@@ -7,8 +7,8 @@
     "serve": "vue-cli-service serve --open --port=3000",
     "build": "vue-cli-service build",
     "inspect": "vue-cli-service inspect",
-    "lint": "vue-cli-service lint --ext .js --ext .vue",
-    "start": "npm run lint && nodemon index.js"
+    "lint": "vue-cli-service lint",
+    "start": "nodemon index.js"
   },
   "dependencies": {
     "iview": "^2.0.0",
