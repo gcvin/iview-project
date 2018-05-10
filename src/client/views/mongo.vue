@@ -29,8 +29,8 @@
 
 <script>
 import moment from 'moment'
-import Page from '../components/page'
-import util from '../libs/util'
+import Page from '@/components/page'
+import util from '@/libs/util'
 
 export default {
     data () {

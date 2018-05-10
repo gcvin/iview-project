@@ -2,9 +2,9 @@ import Vue from 'vue'
 import iView from 'iview'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-import Routers from './router'
-import Util from './libs/util'
-import App from './app.vue'
+import Routers from '@/router'
+import Util from '@/libs/util'
+import App from '@/app.vue'
 import 'iview/dist/styles/iview.css'
 
 // 接口数据请求配置

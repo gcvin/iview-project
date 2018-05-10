@@ -49,8 +49,9 @@ app.use(function (err, req, res, next) {
     })
 })
 
-app.listen(process.env.PORT || 4000, function () {
-    console.log('Server listening at http://localhost:4000')
+const server = app.listen(process.env.PORT || 4000, function () {
+    const port = server.address().port
+    console.log(`Server listening at http://localhost:${port}`)
 })
 
 export default app

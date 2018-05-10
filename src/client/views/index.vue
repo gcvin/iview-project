@@ -58,7 +58,7 @@
         <Row type="flex" justify="center" align="middle">
             <Col span="24">
                 <h1>
-                    <img src="../images/logo.png">
+                    <img src="@/images/logo.png">
                 </h1>
                 <h2>
                     <p>{{ slogan }}</p>
@@ -76,6 +76,7 @@
                     <li><a href="/github">Github</a></li>
                     <li><a href="/mongo">Mongo</a></li>
                     <li><a href="/upload">Upload</a></li>
+                    <li><a href="/minivue">MiniVue</a></li>
                 </ul>
             </Col>
         </Row>
@@ -83,7 +84,7 @@
 </template>
 <script>
 import VanillaTilt from 'vanilla-tilt'
-import iconSvg from '../components/icon-svg'
+import iconSvg from '@/components/icon-svg'
 export default {
     data: function () {
         return {

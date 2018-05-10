@@ -4,35 +4,35 @@ const routers = [
         meta: {
             title: ''
         },
-        component: (resolve) => require(['./views/index.vue'], resolve)
+        component: (resolve) => require(['@/views/index.vue'], resolve)
     },
     {
         path: '/bus',
         meta: {
             title: ''
         },
-        component: (resolve) => require(['./views/bus.vue'], resolve)
+        component: (resolve) => require(['@/views/bus.vue'], resolve)
     },
     {
         path: '/github',
         meta: {
             title: ''
         },
-        component: (resolve) => require(['./views/github.vue'], resolve)
+        component: (resolve) => require(['@/views/github.vue'], resolve)
     },
     {
         path: '/mongo',
         meta: {
             title: ''
         },
-        component: (resolve) => require(['./views/mongo.vue'], resolve)
+        component: (resolve) => require(['@/views/mongo.vue'], resolve)
     },
     {
         path: '/upload',
         meta: {
             title: ''
         },
-        component: (resolve) => require(['./views/upload.vue'], resolve)
+        component: (resolve) => require(['@/views/upload.vue'], resolve)
     }
 ]
 export default routers
