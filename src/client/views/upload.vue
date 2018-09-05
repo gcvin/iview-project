@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="upload">
-        <div class="upload-list" v-for="item in uploadList" :key="item">
+        <div class="upload-list" v-for="item in uploadList" :key="item.uid">
             <template v-if="item.status === 'finished'">
                 <img :src="item.url">
                 <div class="upload-list-cover">
@@ -28,16 +28,18 @@
             action="/ajax/qnupload"
             style="display: inline-block;width:58px;">
             <div style="width: 58px;height:58px;line-height: 58px;">
-                <Icon type="camera" size="20" style="line-height: 58px;"></Icon>
+                <Icon type="ios-camera" size="20" style="line-height: 58px;"></Icon>
             </div>
         </Upload>
         <Modal title="查看图片" v-model="visible">
             <img :src="imgUrl" v-if="visible" style="width: 100%">
         </Modal>
+        <Paper :pages="6" :delay="500" />
     </div>
 </template>
 
 <script>
+import Paper from '@/components/paper'
 export default {
     data () {
         return {
@@ -46,6 +48,9 @@ export default {
             visible: false,
             uploadList: []
         }
+    },
+    components: {
+        Paper
     },
     methods: {
         handleView (url) {
@@ -67,7 +72,8 @@ export default {
             })
         },
         handleSuccess (res, file) {
-            file.url = file.response.data.src
+            file.url = res.data.src
+            file.key = res.data.key
         },
         handleFormatError (file) {
             this.$Notice.warning({
@@ -105,7 +111,7 @@ export default {
 <style lang="css">
 .upload{
     text-align: center;
-    width: 200px;
+    width: 400px;
     margin: 0 auto;
     margin-top: 200px;
 }

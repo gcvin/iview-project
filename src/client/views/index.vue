@@ -62,13 +62,13 @@
                 </h1>
                 <h2>
                     <p>{{ slogan }}</p>
-                    <Button type="ghost" @click="handleStart" class="tilt">Start iView</Button>
+                    <Button type="primary" ghost @click="handleStart" class="tilt">Start iView</Button>
                     <br>
                     <br>
                     <icon-svg icon-class="youxiang" />
-                    <Button type="ghost" @click="handleRecursion">递归</Button>
-                    <Button type="ghost" @click="handlePromise">Promise</Button>
-                    <Button type="ghost" @click="handleAwait">Async/Await</Button>
+                    <Button type="primary" ghost @click="handleRecursion">递归</Button>
+                    <Button type="primary" ghost @click="handlePromise">Promise</Button>
+                    <Button type="primary" ghost @click="handleAwait">Async/Await</Button>
                     <icon-svg icon-class="anquan" />
                 </h2>
                 <ul class="icss">
