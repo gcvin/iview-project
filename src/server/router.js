@@ -54,7 +54,7 @@ router.get('/user/get-user', function (req, res, next) {
 })
 
 router.post('/user/remove-user', function (req, res, next) {
-    User.remove({_id: req.body.id}).then(users => {
+    User.remove({ _id: req.body.id }).then(users => {
         return res.json(success)
     }).catch(err => {
         console.log('Error:' + err)
@@ -121,6 +121,7 @@ router.post('/ajax/qnupload', function (req, res, next) {
                     success: true,
                     msg: '上传成功！',
                     data: {
+                        key: result.key,
                         src: result.url
                     }
                 })

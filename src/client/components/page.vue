@@ -1,23 +1,23 @@
 <template lang="html">
     <div class="page">
         <a :href="resolveUrl(current - 1)">
-            <Button icon="arrow-left-c" :disabled="isFirst"></Button>
+            <Button icon="ios-arrow-back" :disabled="isFirst" type="primary" ghost></Button>
         </a>
 
         <a v-for="num in prevArr" :href="resolveUrl(num)" class="margin" :key="num">
-            <Button v-if="num === 'prev'" icon="ios-arrow-left" class="prev"></Button>
-            <Button v-else>{{ num }}</Button>
+            <Button v-if="num === 'prev'" icon="ios-arrow-left" class="prev" type="primary" ghost></Button>
+            <Button v-else type="primary" ghost>{{ num }}</Button>
         </a>
 
         <Button disabled>{{ current }}</Button>
 
         <a v-for="num in nextArr" :href="resolveUrl(num)" class="margin" :key="num">
-            <Button v-if="num === 'next'" icon="ios-arrow-right" class="next"></Button>
-            <Button v-else>{{ num }}</Button>
+            <Button v-if="num === 'next'" icon="ios-arrow-right" class="next" type="primary" ghost></Button>
+            <Button v-else type="primary" ghost>{{ num }}</Button>
         </a>
 
         <a :href="resolveUrl(current + 1)">
-            <Button icon="arrow-right-c" :disabled="isLast"></Button>
+            <Button icon="ios-arrow-forward" :disabled="isLast" type="primary" ghost></Button>
         </a>
     </div>
 </template>
