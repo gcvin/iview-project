@@ -7,6 +7,9 @@ import Util from '@/libs/util'
 import App from '@/app.vue'
 import 'iview/dist/styles/iview.css'
 
+// 打开vue-devtools调试工具
+Vue.config.devtools = true
+
 // 接口数据请求配置
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
