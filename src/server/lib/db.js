@@ -10,15 +10,15 @@ const DB_URL = 'mongodb://gcvin:gcvin@ds119565.mlab.com:19565/mongo'
 
 mongoose.connect(DB_URL, { useNewUrlParser: true })
 
-mongoose.connection.on('connected', function () {
+mongoose.connection.on('connected', _ => {
     console.log('Mongoose connection open to ' + DB_URL)
 })
 
-mongoose.connection.on('error', function (err) {
+mongoose.connection.on('error', err => {
     console.log('Mongoose connection error: ' + err)
 })
 
-mongoose.connection.on('disconnected', function () {
+mongoose.connection.on('disconnected', _ => {
     console.log('Mongoose connection disconnected')
 })
 

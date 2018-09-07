@@ -1,6 +1,6 @@
-import mongoose from '../db.js'
+import mongoose from '../lib/db.js'
 
-let UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     userName: { type: String },
     userAddr: { type: String },
     userAge: { type: Number },
