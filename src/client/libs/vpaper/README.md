@@ -2,7 +2,7 @@
 vue paper 翻页动画
 
 ### demo地址
-[demo演示页面](http://gcvin.herokuapp.com/upload/, 'paper 翻页动画演示页面')
+[demo演示页面](http://gcvin.herokuapp.com/upload/ 'paper 翻页动画演示页面')
 
 ### 插件的安装
 #### NPM 

@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div class="vpaper">
         <ul class="pages">
             <li class="paper" data-right :style="{animationDuration: duration}">
                 <div class="page page-2">
@@ -34,13 +34,11 @@ export default {
     props: {
         pages: {
             type: Number,
-            required: true,
-            default: 6
+            required: true
         },
         delay: {
             type: Number,
-            required: true,
-            default: 500
+            required: true
         }
     },
     computed: {
@@ -146,7 +144,7 @@ export default {
 </script>
 
 <style lang="less">
-    .pages {
+    .vpaper .pages {
         position: relative;
         height: 300px;
         margin-top: 10px;
@@ -257,7 +255,7 @@ export default {
         }
     }
 
-    .ivu-btn {
+    .vpaper .ivu-btn {
         margin-top: 10px;
     }
 </style>

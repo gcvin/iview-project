@@ -2,10 +2,10 @@ import Vue from 'vue'
 import iView from 'iview'
 import VueRouter from 'vue-router'
 import axios from 'axios'
+import vpaper from 'vpaper'
 import Routers from '@/router'
 import Util from '@/libs/util'
 import App from '@/app.vue'
-import vpaper from 'vpaper'
 import 'iview/dist/styles/iview.css'
 
 // 打开vue-devtools调试工具

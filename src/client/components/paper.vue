@@ -1,5 +1,5 @@
 <template lang="html">
-    <div>
+    <div class="vpaper">
         <ul class="pages">
             <li class="paper" data-right :style="{animationDuration: duration}">
                 <div class="page page-2">
@@ -56,7 +56,7 @@ export default {
             let prev = document.querySelector('.paper[data-left]')
 
             if (!prev) {
-                return this.$Message.error('已经是第一页了')
+                return alert('已经是第一页了')
             }
 
             prev.classList.add('current')
@@ -103,7 +103,7 @@ export default {
             let prev = document.querySelector('.paper[data-left]')
 
             if (!next) {
-                return this.$Message.error('已经是最后一页了')
+                return alert('已经是最后一页了')
             }
 
             next.classList.add('current')
@@ -144,7 +144,7 @@ export default {
 </script>
 
 <style lang="less">
-    .pages {
+    .vpaper .pages {
         position: relative;
         height: 300px;
         margin-top: 10px;
@@ -255,7 +255,7 @@ export default {
         }
     }
 
-    .ivu-btn {
+    .vpaper .ivu-btn {
         margin-top: 10px;
     }
 </style>
