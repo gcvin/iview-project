@@ -1,0 +1,23 @@
+{
+  "name": "vpaper",
+  "version": "0.0.2",
+  "description": "基于vue的paper翻页动画",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gcvin/iview-project"
+  },
+  "keywords": [
+    "vue",
+    "vpaper",
+    "animate"
+  ],
+  "author": "gcvin",
+  "license": "ISC"
+}
