@@ -99,6 +99,8 @@ export default {
             max: 50,
             speed: 400
         })
+        // 触发自定义事件以便预渲染捕获
+        document.dispatchEvent(new Event('render-event'))
         // 获取首页欢迎语
         this.$http.get('/ajax/get-slogan').then(res => {
             this.slogan = res.data.slogan
