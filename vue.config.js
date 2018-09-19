@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const Copy = require('copy-webpack-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
+const PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 const resolve = pathname => path.resolve(__dirname, pathname)
 
@@ -30,13 +31,23 @@ module.exports = {
         if (isProd()) {
             config.plugins.push(
                 new Visualizer({
-                    filename: '../views/stats.ejs' // 相对于output.path
+                    filename: '../views/stats.html' // 相对于output.path
                 }),
                 new Copy([{
                     from: resolve('./src/client/public'),
                     to: resolve('./src/server/public'),
-                    ignore: ['index.ejs', '.DS_Store']
-                }])
+                    ignore: ['index.html', '.DS_Store']
+                }]),
+                new PrerenderSpaPlugin({
+                    staticDir: resolve('./src/server/public'),
+                    indexPath: resolve('./src/server/views/index.html'),
+                    routes: ['/'],
+                    server: {
+                        proxy: {
+                            '/ajax': 'http://localhost:4000'
+                        }
+                    }
+                })
             )
         }
     },
@@ -44,8 +55,8 @@ module.exports = {
         config
             .plugin('html')
             .tap(([args]) => [Object.assign(args, {
-                template: resolve('./src/client/public/index.ejs'),
-                filename: isProd() ? resolve('./src/server/views/index.ejs') : 'index.html'
+                template: resolve('./src/client/public/index.html'),
+                filename: isProd() ? resolve('./src/server/views/index.html') : 'index.html'
             })])
     }
 }

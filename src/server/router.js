@@ -12,22 +12,25 @@ const success = {
     success: true
 }
 
+const renderHtml = (ctx, fname) => {
+    const fpath = path.join(__dirname, './views/' + fname + '.html')
+    ctx.set('Content-Type', 'text/html')
+    ctx.body = fs.createReadStream(fpath)
+}
+
 // 七牛相关配置信息
 const client = qn.create(config.QINIU)
 
-router.get('/', async (ctx) => {
-    await ctx.render('index')
-})
+// router.get('/', async (ctx) => {
+//     renderHtml(ctx, 'index')
+// })
 
 router.get('/stats', async (ctx) => {
-    await ctx.render('stats')
+    renderHtml(ctx, 'stats')
 })
 
 router.get('/minivue', async (ctx) => {
-    const fpath = path.join(__dirname, './views/minivue.html')
-
-    ctx.set('Content-Type', 'text/html')
-    ctx.body = fs.createReadStream(fpath)
+    renderHtml(ctx, 'minivue')
 })
 
 router.get('/ajax/get-slogan', async (ctx) => {
@@ -157,7 +160,7 @@ router.get('/ajax/qndelete', async (ctx) => {
 })
 
 router.get('*', async (ctx) => {
-    await ctx.render('index')
+    renderHtml(ctx, 'index')
 })
 
 export default router

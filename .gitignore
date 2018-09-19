@@ -6,7 +6,7 @@ node_modules/
 .project
 src/server/public/
 src/server/public/*
-src/server/views/index.ejs
-src/server/views/stats.ejs
+src/server/views/index.html
+src/server/views/stats.html
 src/client/config/*.tmp
 src/client/config/env.js
