@@ -2,6 +2,9 @@ import path from 'path'
 import svgCaptcha from 'svg-captcha'
 import qn from 'qn'
 import fs from 'fs'
+import axios from 'axios'
+import moment from 'moment'
+// import mkdirp from 'mkdirp'
 import User from './schema/user.js'
 import upload from './lib/upload'
 import config from './config'
@@ -157,6 +160,62 @@ router.get('/ajax/qndelete', async (ctx) => {
         success: true,
         msg: '删除成功！'
     }
+})
+
+router.get('/ajax/images', async (ctx) => {
+    const baseUrl = 'https://apod.nasa.gov/apod/'
+    const urls = []
+
+    let count = Number(ctx.query.pages)
+
+    const getImage = async (num, offset) => {
+        const pages = new Array(num).fill(undefined).map((item, index) => {
+            const day = moment().subtract(index + offset, 'days').format('YYMMDD')
+            return axios.get(`${baseUrl}ap${day}.html`)
+        })
+
+        const pageData = await Promise.all(pages)
+
+        // const images =
+        pageData.map(item => {
+            const regex = item.data.match(/href="(image\/(\d+)\/([^.]+.jpg))"/)
+
+            if (regex) {
+                const url = regex[1]
+                // const dir = regex[2]
+                // const filename = regex[3]
+
+                urls.push(`${baseUrl}${url}`)
+                count--
+
+                // mkdirp.sync(`src/server/public/img/${dir}`)
+
+                // return axios({
+                //     type: 'get',
+                //     url: `${baseUrl}${url}`,
+                //     responseType: 'stream'
+                // }).then(rs => {
+                //     rs.dir = dir
+                //     rs.filename = filename
+                //     return rs
+                // })
+            }
+        })
+
+        if (count) {
+            await getImage(count, num + 1)
+        }
+    }
+
+    await getImage(count, 1)
+
+    // const imageData = await Promise.all(images)
+
+    // imageData.map(item => {
+    //     item.data.pipe(fs.createWriteStream(`src/server/public/img/${item.dir}/${item.filename}`))
+    // })
+
+    ctx.body = { urls }
 })
 
 router.get('*', async (ctx) => {

@@ -1,20 +1,21 @@
 <template lang="html">
     <div class="vpaper">
+        <Input-number :max="20" :min="1" v-model="images" size="small" @on-change="getImages"></Input-number>
         <ul class="pages">
             <li class="paper" data-right :style="{animationDuration: duration}">
                 <div class="page page-2">
-                    page-1
+                    <img :src="urls[0]" height="100%" width="100%">
                 </div>
                 <div class="page page-2-back">
-                    page-1-back
+                    <img :src="urls[1]" height="100%" width="100%">
                 </div>
             </li>
-            <li v-for="n in pages" v-if="n > 1" :key="n" class="paper" :style="{animationDuration: duration}">
+            <li v-for="n in images" v-if="n > 1" :key="n" class="paper" :style="{animationDuration: duration}">
                 <div class="page">
-                    page-{{n}}
+                    <img :src="urls[2*n-2]" height="100%" width="100%">
                 </div>
                 <div class="page">
-                    page-{{n}}-back
+                    <img :src="urls[2*n-1]" height="100%" width="100%">
                 </div>
             </li>
         </ul>
@@ -28,7 +29,9 @@ export default {
     name: 'paper',
     data () {
         return {
-            page: 1
+            page: 1,
+            images: 1,
+            urls: []
         }
     },
     props: {
@@ -46,17 +49,33 @@ export default {
             return `${this.delay / 1000}s`
         }
     },
+    created () {
+        this.images = this.pages
+        this.getImages(this.images)
+    },
     methods: {
-        goToPrevPage () {
-            if (document.querySelector('[data-begin-animate]')) {
-                return false
-            }
-
+        getImages (current) {
             let next = document.querySelector('.paper[data-right]')
             let prev = document.querySelector('.paper[data-left]')
 
+            this.removePageState(prev, next)
+            next = document.querySelector('.paper')
+            this.addPageState(null, next)
+
+            if (current * 2 > this.urls.length) {
+                this.$http.get('/ajax/images?pages=' + this.images * 2).then(rs => {
+                    this.urls = rs.data.urls
+                })
+            }
+        },
+        goToPrevPage () {
+            let next = document.querySelector('.paper[data-right]')
+            let prev = document.querySelector('.paper[data-left]')
+
+            this.checkPageState(prev, next)
+
             if (!prev) {
-                return alert('已经是第一页了')
+                return this.$Message.error('已经是第一页了')
             }
 
             prev.classList.add('current')
@@ -64,80 +83,71 @@ export default {
             prev.setAttribute('data-begin-animate', true)
 
             setTimeout(() => {
-                prev.removeAttribute('data-begin-animate')
-                prev.classList.remove('current')
-
-                if (next) {
-                    next.removeAttribute('data-right')
-                    next.querySelector('.page-2').classList.remove('page-2')
-                    next.querySelector('.page-2-back').classList.remove('page-2-back')
-                }
-
-                prev.removeAttribute('data-left')
-                prev.querySelector('.page-1').classList.remove('page-1')
-                prev.querySelector('.page-1-back').classList.remove('page-1-back')
-
+                this.removePageState(prev, next)
                 next = prev
                 prev = next.previousElementSibling
-
-                next.setAttribute('data-right', true)
-                next.querySelector('.page').classList.add('page-2')
-                next.querySelector('.page + .page').classList.add('page-2-back')
-
-                if (prev) {
-                    prev.classList.remove('prev')
-                    prev.setAttribute('data-left', true)
-                    prev.querySelector('.page').classList.add('page-1-back')
-                    prev.querySelector('.page + .page').classList.add('page-1')
-                }
-
+                this.addPageState(prev, next)
                 this.page--
             }, this.delay)
         },
         goToNextPage () {
-            if (document.querySelector('[data-begin-animate]')) {
-                return false
-            }
-
             let next = document.querySelector('.paper[data-right]')
             let prev = document.querySelector('.paper[data-left]')
 
+            this.checkPageState(prev, next)
+
             if (!next) {
-                return alert('已经是最后一页了')
+                return this.$Message.error('已经是最后一页了')
             }
 
             next.classList.add('current')
             next.setAttribute('data-begin-animate', true)
 
             setTimeout(() => {
+                this.removePageState(prev, next)
+                prev = next
+                next = prev.nextElementSibling
+                this.addPageState(prev, next)
+                this.page++
+            }, this.delay)
+        },
+        removePageState (prev, next) {
+            if (next) {
                 next.removeAttribute('data-begin-animate')
                 next.classList.remove('current')
 
                 next.removeAttribute('data-right')
                 next.querySelector('.page-2').classList.remove('page-2')
                 next.querySelector('.page-2-back').classList.remove('page-2-back')
+            }
 
-                if (prev) {
-                    prev.removeAttribute('data-left')
-                    prev.querySelector('.page-1').classList.remove('page-1')
-                    prev.querySelector('.page-1-back').classList.remove('page-1-back')
-                }
+            if (prev) {
+                prev.removeAttribute('data-begin-animate')
+                prev.classList.remove('current')
 
-                prev = next
-                next = prev.nextElementSibling
-
+                prev.removeAttribute('data-left')
+                prev.querySelector('.page-1').classList.remove('page-1')
+                prev.querySelector('.page-1-back').classList.remove('page-1-back')
+            }
+        },
+        addPageState (prev, next) {
+            if (prev) {
+                prev.classList.remove('prev')
                 prev.setAttribute('data-left', true)
                 prev.querySelector('.page').classList.add('page-1-back')
                 prev.querySelector('.page + .page').classList.add('page-1')
+            }
 
-                if (next) {
-                    next.setAttribute('data-right', true)
-                    next.querySelector('.page').classList.add('page-2')
-                    next.querySelector('.page + .page').classList.add('page-2-back')
-                }
-
-                this.page++
-            }, this.delay)
+            if (next) {
+                next.setAttribute('data-right', true)
+                next.querySelector('.page').classList.add('page-2')
+                next.querySelector('.page + .page').classList.add('page-2-back')
+            }
+        },
+        checkPageState (prev, next) {
+            if (document.querySelector('[data-begin-animate]')) {
+                return false
+            }
         }
     }
 }
@@ -146,7 +156,7 @@ export default {
 <style lang="less">
     .vpaper .pages {
         position: relative;
-        height: 300px;
+        height: 400px;
         margin-top: 10px;
 
         .paper {
@@ -197,10 +207,10 @@ export default {
         }
 
         .page {
-            width: 200px;
-            height: 300px;
+            width: 300px;
+            height: 400px;
             border: 1px solid #eee;
-            line-height: 300px;
+            // line-height: 300px;
             text-align: center;
             background-color: #fff;
         }

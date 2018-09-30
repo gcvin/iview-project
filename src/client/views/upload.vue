@@ -34,12 +34,12 @@
         <Modal title="查看图片" v-model="visible">
             <img :src="imgUrl" v-if="visible" style="width: 100%">
         </Modal>
-        <vpaper :pages="6" :delay="500" />
+        <Paper :pages="6" :delay="500" />
     </div>
 </template>
 
 <script>
-// import Paper from '@/components/paper'
+import Paper from '@/components/paper'
 export default {
     data () {
         return {
@@ -49,9 +49,9 @@ export default {
             uploadList: []
         }
     },
-    // components: {
-    //     Paper
-    // },
+    components: {
+        Paper
+    },
     methods: {
         handleView (url) {
             this.imgUrl = url
@@ -111,7 +111,7 @@ export default {
 <style lang="css">
 .upload{
     text-align: center;
-    width: 400px;
+    width: 600px;
     margin: 0 auto;
     margin-top: 200px;
 }
