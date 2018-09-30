@@ -1,58 +1,3 @@
-<style scoped lang="less">
-    .index{
-        width: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        text-align: center;
-        h1{
-            height: 150px;
-            img{
-                height: 100%;
-            }
-        }
-        h2{
-            color: #666;
-            p{
-                margin: 0 0 50px;
-            }
-        }
-        .ivu-row-flex{
-            height: 100%;
-        }
-        .icss{
-            margin-top: 40px;
-            li{
-                display: inline-block;
-                position: relative;
-                padding: 10px;
-                font-size: 14px;
-                line-height: 1;
-                transition: 0.2s all linear;
-                cursor: pointer;
-                &::before{
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    left: 100%;
-                    height: 1px;
-                    width: 0;
-                    border-bottom: 1px solid #2d8cf0;
-                    transition: 0.2s all linear;
-                }
-                &:hover::before{
-                    left: 0;
-                    width: 100%;
-                    transition-delay: 0.1s;
-                }
-                &:hover ~ li::before{
-                    left: 0;
-                }
-            }
-        }
-    }
-</style>
 <template>
     <div class="index">
         <Row type="flex" justify="center" align="middle">
@@ -177,3 +122,58 @@ export default {
     }
 }
 </script>
+<style scoped lang="less">
+    .index{
+        width: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+        h1{
+            height: 150px;
+            img{
+                height: 100%;
+            }
+        }
+        h2{
+            color: #666;
+            p{
+                margin: 0 0 50px;
+            }
+        }
+        .ivu-row-flex{
+            height: 100%;
+        }
+        .icss{
+            margin-top: 40px;
+            li{
+                display: inline-block;
+                position: relative;
+                padding: 10px;
+                font-size: 14px;
+                line-height: 1;
+                transition: 0.2s all linear;
+                cursor: pointer;
+                &::before{
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 100%;
+                    height: 1px;
+                    width: 0;
+                    border-bottom: 1px solid #2d8cf0;
+                    transition: 0.2s all linear;
+                }
+                &:hover::before{
+                    left: 0;
+                    width: 100%;
+                    transition-delay: 0.1s;
+                }
+                &:hover ~ li::before{
+                    left: 0;
+                }
+            }
+        }
+    }
+</style>
