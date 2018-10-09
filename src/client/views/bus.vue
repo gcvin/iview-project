@@ -3,6 +3,14 @@
         <bus-parent :class="[{ active: isActive }, bold]"></bus-parent>
         <bus-child class="arrow"></bus-child>
         <div class="captcha" @click="getCaptcha" @mousemove="getPositon($event)"></div>
+        <div class="double">
+            十进制加法：
+            <InputNumber v-model="addend" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber>
+            <span class="plus">+</span>
+            <InputNumber v-model="summand" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber><br>
+            二进制求和：<Input v-model="binary" size="small" style="width: 400px"></Input><br>
+            十进制结果：<span>{{ accurate }}</span>
+        </div>
     </div>
 </template>
 
@@ -15,7 +23,10 @@ export default {
     data () {
         return {
             isActive: true,
-            bold: 'bold'
+            bold: 'bold',
+            addend: 0,
+            summand: 0,
+            binary: 0
         }
     },
     created () {
@@ -36,6 +47,88 @@ export default {
 
             target.style.setProperty('--x', `${e.offsetX}px`)
             target.style.setProperty('--y', `${e.offsetY}px`)
+        },
+        getBinary (decimal) {
+            let result = ''
+            let n = ~~decimal
+            let m = decimal - n
+            let count = 0
+            let zero = 0
+
+            if (!n) {
+                result += '0'
+            }
+
+            while (n) {
+                result = n % 2 + result
+                n = ~~(n / 2)
+                count++
+            }
+
+            if (m) {
+                result += '.'
+            } else {
+                result += '.0'
+            }
+
+            while (m) {
+                result = result + ~~(m * 2)
+                m = m * 2 % 1
+                count++
+                if (!Number(result)) {
+                    zero++
+                }
+                if (count === 53 + zero) {
+                    break
+                }
+            }
+
+            return result
+        },
+        getSumBinary () {
+            let addend = this.getBinary(this.addend).split('.')
+            let summand = this.getBinary(this.summand).split('.')
+
+            const leftLen = Math.max(addend[0].length, summand[0].length)
+            const rightLen = Math.max(addend[1].length, summand[1].length)
+
+            addend = addend[0].padStart(leftLen, '0') + '.' + addend[1].padEnd(rightLen, '0')
+            summand = summand[0].padStart(leftLen, '0') + '.' + summand[1].padEnd(rightLen, '0')
+
+            let length = addend.length
+            let result = ''
+            let carry = 0
+
+            while (length) {
+                length--
+
+                if (addend[length] !== '.') {
+                    result = (addend[length] ^ summand[length] ^ carry) + result
+                    carry = +((+addend[length] + +summand[length] + carry) > 1)
+                } else {
+                    result = '.' + result
+                }
+            }
+
+            this.binary = result
+        }
+    },
+    computed: {
+        accurate: function () {
+            let result = 0
+            let binary = this.binary + '.0'
+            let n = binary.split('.')[0].split('').reverse()
+            let m = binary.split('.')[1].split('')
+
+            result += n.reduce((sum, curr, index) => {
+                return sum + Number(curr) * Math.pow(2, index)
+            }, 0)
+
+            result += m.reduce((sum, curr, index) => {
+                return sum + Number(curr) * Math.pow(2, index * -1 - 1)
+            }, 0)
+
+            return result
         }
     }
 }
@@ -44,7 +137,7 @@ export default {
 <style lang="less">
 .bus {
     text-align: center;
-    width: 200px;
+    width: 500px;
     margin: 0 auto;
     margin-top: 200px;
 }
@@ -85,7 +178,7 @@ export default {
 }
 
 .captcha {
-    margin-top: 10px;
+    margin: 10px auto;
     position: relative;
     cursor: pointer;
     overflow: hidden;
@@ -108,6 +201,16 @@ export default {
 
     &:hover::before {
         --size: 40px;
+    }
+}
+.double {
+    line-height: 50px;
+    text-align: left;
+
+    .plus {
+        display: inline-block;
+        text-align: center;
+        width: 40px;
     }
 }
 </style>
