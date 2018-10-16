@@ -4,7 +4,6 @@ import qn from 'qn'
 import fs from 'fs'
 import axios from 'axios'
 import moment from 'moment'
-// import mkdirp from 'mkdirp'
 import User from './schema/user.js'
 import upload from './lib/upload'
 import config from './config'
@@ -23,10 +22,6 @@ const renderHtml = (ctx, fname) => {
 
 // 七牛相关配置信息
 const client = qn.create(config.QINIU)
-
-// router.get('/', async (ctx) => {
-//     renderHtml(ctx, 'index')
-// })
 
 router.get('/stats', async (ctx) => {
     renderHtml(ctx, 'stats')
@@ -49,11 +44,12 @@ router.get('/ajax/get-vercode', async (ctx) => {
 
 router.get('/user/get-user', async (ctx) => {
     const page = Number(ctx.query.page) || 1
-    const users = await User.find({})
+    const users = await User.find(null, null, { skip: (page - 1) * 10, limit: 10 })
+    const total = await User.countDocuments()
 
     ctx.body = {
-        users: users.slice(page * 10 - 10, page * 10),
-        total: users.length
+        users,
+        total
     }
 })
 
@@ -176,29 +172,14 @@ router.get('/ajax/images', async (ctx) => {
 
         const pageData = await Promise.all(pages)
 
-        // const images =
         pageData.map(item => {
             const regex = item.data.match(/href="(image\/(\d+)\/([^.]+.jpg))"/)
 
             if (regex) {
                 const url = regex[1]
-                // const dir = regex[2]
-                // const filename = regex[3]
 
                 urls.push(`${baseUrl}${url}`)
                 count--
-
-                // mkdirp.sync(`src/server/public/img/${dir}`)
-
-                // return axios({
-                //     type: 'get',
-                //     url: `${baseUrl}${url}`,
-                //     responseType: 'stream'
-                // }).then(rs => {
-                //     rs.dir = dir
-                //     rs.filename = filename
-                //     return rs
-                // })
             }
         })
 
@@ -209,13 +190,19 @@ router.get('/ajax/images', async (ctx) => {
 
     await getImage(count, 1)
 
-    // const imageData = await Promise.all(images)
-
-    // imageData.map(item => {
-    //     item.data.pipe(fs.createWriteStream(`src/server/public/img/${item.dir}/${item.filename}`))
-    // })
-
     ctx.body = { urls }
+})
+
+router.get('/proxy/image', async (ctx) => {
+    const image = await axios({
+        type: 'get',
+        url: ctx.query.url,
+        responseType: 'stream'
+    })
+
+    ctx.type = 'image/png'
+    ctx.status = 200
+    ctx.body = image.data
 })
 
 router.get('*', async (ctx) => {

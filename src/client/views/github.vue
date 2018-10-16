@@ -135,6 +135,6 @@ export default {
 .github {
     text-align: center;
     width: 800px;
-    margin: 100px auto;
+    margin: 0 auto;
 }
 </style>

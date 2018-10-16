@@ -139,7 +139,6 @@ export default {
     text-align: center;
     width: 500px;
     margin: 0 auto;
-    margin-top: 200px;
 }
 .active {
     color: #42b983;

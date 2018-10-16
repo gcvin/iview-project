@@ -113,7 +113,6 @@ export default {
     text-align: center;
     width: 600px;
     margin: 0 auto;
-    margin-top: 200px;
 }
 .upload-list{
     display: inline-block;

@@ -177,7 +177,7 @@ export default {
 <style lang="css">
 .mongo {
     width: 800px;
-    margin: 100px auto;
+    margin: 0 auto;
 }
 .page {
     margin-top: 20px;

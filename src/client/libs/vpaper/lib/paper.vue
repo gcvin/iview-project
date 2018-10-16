@@ -2,15 +2,23 @@
     <div class="vpaper">
         <Input-number :max="20" :min="1" v-model="images" size="small" @on-change="getImages"></Input-number>
         <ul class="pages">
-            <li class="paper" data-right :style="{animationDuration: duration}">
-                <div class="page page-2">
+            <li class="paper" data-left :style="{animationDuration: duration}">
+                <div class="page page-1-back">
                     <img :src="urls[0]" height="100%" width="100%">
                 </div>
-                <div class="page page-2-back">
+                <div class="page page-1">
                     <img :src="urls[1]" height="100%" width="100%">
                 </div>
             </li>
-            <li v-for="n in images" v-if="n > 1" :key="n" class="paper" :style="{animationDuration: duration}">
+            <li class="paper" data-right :style="{animationDuration: duration}">
+                <div class="page page-2">
+                    <img :src="urls[2]" height="100%" width="100%">
+                </div>
+                <div class="page page-2-back">
+                    <img :src="urls[3]" height="100%" width="100%">
+                </div>
+            </li>
+            <li v-for="n in images" v-if="n > 2" :key="n" class="paper" :style="{animationDuration: duration}">
                 <div class="page">
                     <img :src="urls[2*n-2]" height="100%" width="100%">
                 </div>
@@ -75,7 +83,7 @@ export default {
             this.checkPageState(prev, next)
 
             if (!prev) {
-                return this.$Message.error('已经是第一页了')
+                return this.$Message.warning('已经是第一页了')
             }
 
             prev.classList.add('current')
@@ -97,7 +105,7 @@ export default {
             this.checkPageState(prev, next)
 
             if (!next) {
-                return this.$Message.error('已经是最后一页了')
+                return this.$Message.warning('已经是最后一页了')
             }
 
             next.classList.add('current')
@@ -267,5 +275,6 @@ export default {
 
     .vpaper .ivu-btn {
         margin-top: 10px;
+        margin-bottom: 10px;
     }
 </style>
