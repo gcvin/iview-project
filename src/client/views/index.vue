@@ -122,8 +122,14 @@ export default {
             })
         },
         handleShots () {
-            let vm = this
-            html2canvas(document.body).then(canvas => {
+            const vm = this
+            const root = document.querySelector('.index')
+
+            html2canvas(root, {
+                scale: 1,
+                logging: false,
+                proxy: '/proxy/image'
+            }).then(canvas => {
                 const height = canvas.height
                 const width = canvas.width
                 const style = {
@@ -151,7 +157,7 @@ export default {
 
                 shotsCanvas.addEventListener('mouseup', handleMouseup)
 
-                document.querySelector('.index').appendChild(shotsCanvas)
+                root.appendChild(shotsCanvas)
 
                 function handleMousedown (e) {
                     if (isStart) {
@@ -199,10 +205,10 @@ export default {
 
                     vm.$Modal.info({
                         title: '截图',
-                        width: area.width,
+                        width: area.width + 82,
                         content: `<img src="${newCanvas.toDataURL()}" width="100%" height="100%"></img>`,
                         onOk () {
-                            document.querySelector('.index').removeChild(shotsCanvas)
+                            root.removeChild(shotsCanvas)
                         }
                     })
                 }
