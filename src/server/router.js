@@ -44,11 +44,12 @@ router.get('/ajax/get-vercode', async (ctx) => {
 
 router.get('/user/get-user', async (ctx) => {
     const page = Number(ctx.query.page) || 1
-    const users = await User.find({})
+    const users = await User.find(null, null, { skip: (page - 1) * 10, limit: 10 })
+    const total = await User.countDocuments()
 
     ctx.body = {
-        users: users.slice(page * 10 - 10, page * 10),
-        total: users.length
+        users,
+        total
     }
 })
 
@@ -199,6 +200,7 @@ router.get('/proxy/image', async (ctx) => {
         responseType: 'stream'
     })
 
+    ctx.type = 'image/png'
     ctx.status = 200
     ctx.body = image.data
 })
