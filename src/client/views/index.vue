@@ -125,11 +125,6 @@ export default {
 <style scoped lang="less">
     .index{
         width: 100%;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        text-align: center;
         h1{
             height: 150px;
             img{

@@ -133,7 +133,6 @@ export default {
 
 <style lang="css">
 .github {
-    text-align: center;
     width: 800px;
     margin: 0 auto;
 }
