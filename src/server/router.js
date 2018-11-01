@@ -200,6 +200,7 @@ router.get('/proxy/image', async (ctx) => {
         responseType: 'stream'
     })
 
+    ctx.set('Cache-Control', 'max-age=31536000')
     ctx.type = 'image/png'
     ctx.status = 200
     ctx.body = image.data

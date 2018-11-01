@@ -39,7 +39,8 @@ export default {
                 const style = {
                     position: 'absolute',
                     top: root.offsetTop + 'px',
-                    left: root.offsetLeft + 'px'
+                    left: root.offsetLeft + 'px',
+                    zIndex: 999
                 }
 
                 const shotsCanvas = createCanvas(height, width, style)
@@ -155,5 +156,6 @@ export default {
         background-color: #3899ff80;
         border-radius: 50%;
         color: #3899ff;
+        z-index: 999;
     }
 </style>
