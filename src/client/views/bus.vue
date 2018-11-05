@@ -136,7 +136,6 @@ export default {
 
 <style lang="less">
 .bus {
-    text-align: center;
     width: 500px;
     margin: 0 auto;
 }

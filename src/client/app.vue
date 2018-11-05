@@ -142,6 +142,7 @@ export default {
 
     #app {
         padding: 100px;
+        text-align: center;
     }
 
     .screen-shots {

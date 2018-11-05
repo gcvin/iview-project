@@ -110,7 +110,6 @@ export default {
 
 <style lang="css">
 .upload{
-    text-align: center;
     width: 600px;
     margin: 0 auto;
 }
