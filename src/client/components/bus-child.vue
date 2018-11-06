@@ -6,16 +6,16 @@
 import bus from '@/libs/bus.js'
 
 export default {
-    data: function () {
-        return {
-            value: ''
-        }
-    },
-    methods: {
-        changeValue () {
-            bus.$emit('change-value', this.value)
-        }
+  data: function () {
+    return {
+      value: ''
     }
+  },
+  methods: {
+    changeValue () {
+      bus.$emit('change-value', this.value)
+    }
+  }
 }
 </script>
 

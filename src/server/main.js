@@ -21,21 +21,21 @@ app.use(serve(path.join(__dirname, 'public')))
 app.use(session(app))
 
 app.use(async (ctx, next) => {
-    try {
-        await next()
-    } catch (err) {
-        await ctx.render('error', {
-            message: err.message,
-            error: err
-        })
-    }
+  try {
+    await next()
+  } catch (err) {
+    await ctx.render('error', {
+      message: err.message,
+      error: err
+    })
+  }
 })
 
 app.use(router.routes())
 
 const server = app.listen(process.env.PORT || 4000, _ => {
-    const port = server.address().port
-    console.log(`Server listening at http://localhost:${port}`)
+  const port = server.address().port
+  console.log(`Server listening at http://localhost:${port}`)
 })
 
 export default app

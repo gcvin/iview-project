@@ -34,130 +34,130 @@
 
 <script>
 export default {
-    name: 'paper',
-    data () {
-        return {
-            page: 1,
-            images: 1,
-            urls: []
-        }
-    },
-    props: {
-        pages: {
-            type: Number,
-            required: true
-        },
-        delay: {
-            type: Number,
-            required: true
-        }
-    },
-    computed: {
-        duration () {
-            return `${this.delay / 1000}s`
-        }
-    },
-    created () {
-        this.images = this.pages
-        this.getImages(this.images)
-    },
-    methods: {
-        getImages (current) {
-            let next = document.querySelector('.paper[data-right]')
-            let prev = document.querySelector('.paper[data-left]')
-
-            this.removePageState(prev, next)
-            next = document.querySelector('.paper')
-            this.addPageState(null, next)
-
-            if (current * 2 > this.urls.length) {
-                this.$http.get('/ajax/images?pages=' + this.images * 2).then(rs => {
-                    this.urls = rs.data.urls
-                })
-            }
-        },
-        goToPrevPage () {
-            let next = document.querySelector('.paper[data-right]')
-            let prev = document.querySelector('.paper[data-left]')
-
-            this.checkPageState(prev, next)
-
-            if (!prev) {
-                return this.$Message.warning('已经是第一页了')
-            }
-
-            prev.classList.add('current')
-            prev.previousElementSibling && prev.previousElementSibling.classList.add('prev')
-            prev.setAttribute('data-begin-animate', true)
-
-            setTimeout(() => {
-                this.removePageState(prev, next)
-                next = prev
-                prev = next.previousElementSibling
-                this.addPageState(prev, next)
-                this.page--
-            }, this.delay)
-        },
-        goToNextPage () {
-            let next = document.querySelector('.paper[data-right]')
-            let prev = document.querySelector('.paper[data-left]')
-
-            this.checkPageState(prev, next)
-
-            if (!next) {
-                return this.$Message.warning('已经是最后一页了')
-            }
-
-            next.classList.add('current')
-            next.setAttribute('data-begin-animate', true)
-
-            setTimeout(() => {
-                this.removePageState(prev, next)
-                prev = next
-                next = prev.nextElementSibling
-                this.addPageState(prev, next)
-                this.page++
-            }, this.delay)
-        },
-        removePageState (prev, next) {
-            if (next) {
-                next.removeAttribute('data-begin-animate')
-                next.classList.remove('current')
-
-                next.removeAttribute('data-right')
-                next.querySelector('.page-2').classList.remove('page-2')
-                next.querySelector('.page-2-back').classList.remove('page-2-back')
-            }
-
-            if (prev) {
-                prev.removeAttribute('data-begin-animate')
-                prev.classList.remove('current')
-
-                prev.removeAttribute('data-left')
-                prev.querySelector('.page-1').classList.remove('page-1')
-                prev.querySelector('.page-1-back').classList.remove('page-1-back')
-            }
-        },
-        addPageState (prev, next) {
-            if (prev) {
-                prev.classList.remove('prev')
-                prev.setAttribute('data-left', true)
-                prev.querySelector('.page').classList.add('page-1-back')
-                prev.querySelector('.page + .page').classList.add('page-1')
-            }
-
-            if (next) {
-                next.setAttribute('data-right', true)
-                next.querySelector('.page').classList.add('page-2')
-                next.querySelector('.page + .page').classList.add('page-2-back')
-            }
-        },
-        checkPageState (prev, next) {
-            if (document.querySelector('[data-begin-animate]')) {
-                return false
-            }
-        }
+  name: 'paper',
+  data () {
+    return {
+      page: 1,
+      images: 1,
+      urls: []
     }
+  },
+  props: {
+    pages: {
+      type: Number,
+      required: true
+    },
+    delay: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    duration () {
+      return `${this.delay / 1000}s`
+    }
+  },
+  created () {
+    this.images = this.pages
+    this.getImages(this.images)
+  },
+  methods: {
+    getImages (current) {
+      let next = document.querySelector('.paper[data-right]')
+      let prev = document.querySelector('.paper[data-left]')
+
+      this.removePageState(prev, next)
+      next = document.querySelector('.paper')
+      this.addPageState(null, next)
+
+      if (current * 2 > this.urls.length) {
+        this.$http.get('/ajax/images?pages=' + this.images * 2).then(rs => {
+          this.urls = rs.data.urls
+        })
+      }
+    },
+    goToPrevPage () {
+      let next = document.querySelector('.paper[data-right]')
+      let prev = document.querySelector('.paper[data-left]')
+
+      this.checkPageState(prev, next)
+
+      if (!prev) {
+        return this.$Message.warning('已经是第一页了')
+      }
+
+      prev.classList.add('current')
+      prev.previousElementSibling && prev.previousElementSibling.classList.add('prev')
+      prev.setAttribute('data-begin-animate', true)
+
+      setTimeout(() => {
+        this.removePageState(prev, next)
+        next = prev
+        prev = next.previousElementSibling
+        this.addPageState(prev, next)
+        this.page--
+      }, this.delay)
+    },
+    goToNextPage () {
+      let next = document.querySelector('.paper[data-right]')
+      let prev = document.querySelector('.paper[data-left]')
+
+      this.checkPageState(prev, next)
+
+      if (!next) {
+        return this.$Message.warning('已经是最后一页了')
+      }
+
+      next.classList.add('current')
+      next.setAttribute('data-begin-animate', true)
+
+      setTimeout(() => {
+        this.removePageState(prev, next)
+        prev = next
+        next = prev.nextElementSibling
+        this.addPageState(prev, next)
+        this.page++
+      }, this.delay)
+    },
+    removePageState (prev, next) {
+      if (next) {
+        next.removeAttribute('data-begin-animate')
+        next.classList.remove('current')
+
+        next.removeAttribute('data-right')
+        next.querySelector('.page-2').classList.remove('page-2')
+        next.querySelector('.page-2-back').classList.remove('page-2-back')
+      }
+
+      if (prev) {
+        prev.removeAttribute('data-begin-animate')
+        prev.classList.remove('current')
+
+        prev.removeAttribute('data-left')
+        prev.querySelector('.page-1').classList.remove('page-1')
+        prev.querySelector('.page-1-back').classList.remove('page-1-back')
+      }
+    },
+    addPageState (prev, next) {
+      if (prev) {
+        prev.classList.remove('prev')
+        prev.setAttribute('data-left', true)
+        prev.querySelector('.page').classList.add('page-1-back')
+        prev.querySelector('.page + .page').classList.add('page-1')
+      }
+
+      if (next) {
+        next.setAttribute('data-right', true)
+        next.querySelector('.page').classList.add('page-2')
+        next.querySelector('.page + .page').classList.add('page-2-back')
+      }
+    },
+    checkPageState (prev, next) {
+      if (document.querySelector('[data-begin-animate]')) {
+        return false
+      }
+    }
+  }
 }
 </script>
 
