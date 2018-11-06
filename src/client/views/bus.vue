@@ -161,6 +161,7 @@ export default {
     top: -20px;
     left: 50%;
     margin-left: -10px;
+    transition: border .2s ease-in-out;
 }
 
 .arrow:after {
@@ -173,6 +174,10 @@ export default {
     top: -18px;
     left: 50%;
     margin-left: -10px;
+}
+
+.arrow:hover::before {
+    border-bottom-color: #57a3f3;
 }
 
 .captcha {
