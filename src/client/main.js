@@ -19,25 +19,25 @@ Vue.use(vpaper)
 
 // 路由配置
 const RouterConfig = {
-    mode: 'history',
-    routes: Routers
+  mode: 'history',
+  routes: Routers
 }
 const router = new VueRouter(RouterConfig)
 
 // 路由钩子函数
 router.beforeEach((to, from, next) => {
-    iView.LoadingBar.start()
-    Util.title(to.meta.title)
-    next()
+  iView.LoadingBar.start()
+  Util.title(to.meta.title)
+  next()
 })
 
 router.afterEach((to, from, next) => {
-    iView.LoadingBar.finish()
-    window.scrollTo(0, 0)
+  iView.LoadingBar.finish()
+  window.scrollTo(0, 0)
 })
 
 new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(App)
+  el: '#app',
+  router: router,
+  render: h => h(App)
 })

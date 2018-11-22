@@ -23,60 +23,60 @@
 </template>
 <script>
 export default {
-    props: [
-        'url',
-        'current',
-        'size',
-        'total'
-    ],
-    computed: {
-        totalPage () {
-            return Math.ceil(this.total / this.size)
-        },
-        isFirst () {
-            return this.current === 1
-        },
-        isLast () {
-            return this.current === this.totalPage
-        },
-        prevArr () {
-            let arr = [this.current - 2, this.current - 1].filter(item => item > 0)
-            if (this.current === 5) {
-                arr.unshift(2)
-            }
-            if (this.current > 5) {
-                arr.unshift('prev')
-            }
-            if (this.current > 3) {
-                arr.unshift(1)
-            }
-            return arr
-        },
-        nextArr () {
-            let arr = [this.current + 1, this.current + 2].filter(item => item <= this.totalPage)
-            if (this.current === this.totalPage - 4) {
-                arr.push(this.totalPage - 1)
-            }
-            if (this.current < this.totalPage - 4) {
-                arr.push('next')
-            }
-            if (this.current < this.totalPage - 2) {
-                arr.push(this.totalPage)
-            }
-            return arr
-        }
+  props: [
+    'url',
+    'current',
+    'size',
+    'total'
+  ],
+  computed: {
+    totalPage () {
+      return Math.ceil(this.total / this.size)
     },
-    methods: {
-        resolveUrl (num) {
-            if (num === 'prev') {
-                num = this.current - 5
-            }
-            if (num === 'next') {
-                num = this.current + 5
-            }
-            return this.url.replace('#num#', num)
-        }
+    isFirst () {
+      return this.current === 1
+    },
+    isLast () {
+      return this.current === this.totalPage
+    },
+    prevArr () {
+      let arr = [this.current - 2, this.current - 1].filter(item => item > 0)
+      if (this.current === 5) {
+        arr.unshift(2)
+      }
+      if (this.current > 5) {
+        arr.unshift('prev')
+      }
+      if (this.current > 3) {
+        arr.unshift(1)
+      }
+      return arr
+    },
+    nextArr () {
+      let arr = [this.current + 1, this.current + 2].filter(item => item <= this.totalPage)
+      if (this.current === this.totalPage - 4) {
+        arr.push(this.totalPage - 1)
+      }
+      if (this.current < this.totalPage - 4) {
+        arr.push('next')
+      }
+      if (this.current < this.totalPage - 2) {
+        arr.push(this.totalPage)
+      }
+      return arr
     }
+  },
+  methods: {
+    resolveUrl (num) {
+      if (num === 'prev') {
+        num = this.current - 5
+      }
+      if (num === 'next') {
+        num = this.current + 5
+      }
+      return this.url.replace('#num#', num)
+    }
+  }
 }
 </script>
 <style lang="css">

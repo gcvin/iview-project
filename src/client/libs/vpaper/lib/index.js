@@ -7,9 +7,9 @@
 import vpaper from './paper.vue'
 
 const myPlugin = {
-    install (Vue, options) {
-        Vue.component('vpaper', vpaper)
-    }
+  install (Vue, options) {
+    Vue.component('vpaper', vpaper)
+  }
 }
 
 export default myPlugin

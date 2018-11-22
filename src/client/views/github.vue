@@ -20,114 +20,114 @@ import moment from 'moment'
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export default {
-    data: function () {
-        return {
-            branches: [],
-            commits: [],
-            size: 3,
-            second: 0,
-            currentBranch: 'master',
-            columns: [
-                {
-                    title: 'SHA',
-                    render: (h, params) => {
-                        return h('a', {
-                            attrs: {
-                                href: params.row.html_url
-                            }
-                        }, params.row.sha.slice(0, 7))
-                    }
-                },
-                {
-                    title: 'Message',
-                    render: (h, params) => {
-                        let message = params.row.commit.message.replace(/^Merge\spull\srequest\s(#\d+).*/, '$1')
-                        let newline = message.indexOf('\n')
-                        return h('span', newline > 0 ? message.slice(0, newline) : message)
-                    }
-                },
-                {
-                    title: 'Author',
-                    render: (h, params) => {
-                        if (params.row.author) {
-                            return h('span', params.row.author.login)
-                        }
-                        return h('span', params.row.commit.author.name)
-                    }
-                },
-                {
-                    title: 'Email',
-                    render: (h, params) => {
-                        return h('span', params.row.commit.author.email)
-                    }
-                },
-                {
-                    title: 'Date',
-                    render: (h, params) => {
-                        return h('span', moment(params.row.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
-                    }
-                }
-            ]
-        }
-    },
-    created () {
-        let branchURL = 'https://api.github.com/repos/gcvin/iview-project/branches'
-        this.$http.get(branchURL).then(respose => {
-            this.branches = respose.data
-            this.getCommits()
-        })
-    },
-    computed: {
-        btnText () {
-            return this.second ? this.second + 's后重新获取' : '获取验证码'
-        }
-    },
-    methods: {
-        getCommits () {
-            let commitURL = `https://api.github.com/repos/gcvin/iview-project/commits?per_page=${this.size}&sha=${this.currentBranch}`
-            this.$http.get(commitURL).then(respose => {
-                this.commits = respose.data
-            })
+  data: function () {
+    return {
+      branches: [],
+      commits: [],
+      size: 3,
+      second: 0,
+      currentBranch: 'master',
+      columns: [
+        {
+          title: 'SHA',
+          render: (h, params) => {
+            return h('a', {
+              attrs: {
+                href: params.row.html_url
+              }
+            }, params.row.sha.slice(0, 7))
+          }
         },
-        handleCreatePdf () {
-            let head = this.columns.map(col => col.title)
-            let body = this.commits.map(commit => {
-                let tmp = []
-                tmp.push(commit.sha.slice(0, 7))
-                tmp.push(commit.commit.message.split('\n').pop())
-                tmp.push(commit.commit.author.name)
-                tmp.push(commit.commit.author.email)
-                tmp.push(moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
-                return tmp
-            })
-            let docDefinition = {
-                content: [{
-                    layout: 'lightHorizontalLines',
-                    table: {
-                        headerRows: 1,
-                        body: [head, ...body]
-                    }
-                }]
+        {
+          title: 'Message',
+          render: (h, params) => {
+            let message = params.row.commit.message.replace(/^Merge\spull\srequest\s(#\d+).*/, '$1')
+            let newline = message.indexOf('\n')
+            return h('span', newline > 0 ? message.slice(0, newline) : message)
+          }
+        },
+        {
+          title: 'Author',
+          render: (h, params) => {
+            if (params.row.author) {
+              return h('span', params.row.author.login)
             }
-
-            pdfMake.createPdf(docDefinition).open()
+            return h('span', params.row.commit.author.name)
+          }
         },
-        handleVerCode () {
-            this.$http.get('/ajax/get-vercode').then(res => {
-                this.$Message.info('验证码：' + res.data.vercode)
-
-                let timesRun = res.data.times
-                this.second = timesRun
-                let interval = setInterval(_ => {
-                    timesRun -= 1
-                    this.second = timesRun
-                    if (timesRun === 0) {
-                        clearInterval(interval)
-                    }
-                }, 1000)
-            })
+        {
+          title: 'Email',
+          render: (h, params) => {
+            return h('span', params.row.commit.author.email)
+          }
+        },
+        {
+          title: 'Date',
+          render: (h, params) => {
+            return h('span', moment(params.row.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
+          }
         }
+      ]
     }
+  },
+  created () {
+    let branchURL = 'https://api.github.com/repos/gcvin/iview-project/branches'
+    this.$http.get(branchURL).then(respose => {
+      this.branches = respose.data
+      this.getCommits()
+    })
+  },
+  computed: {
+    btnText () {
+      return this.second ? this.second + 's后重新获取' : '获取验证码'
+    }
+  },
+  methods: {
+    getCommits () {
+      let commitURL = `https://api.github.com/repos/gcvin/iview-project/commits?per_page=${this.size}&sha=${this.currentBranch}`
+      this.$http.get(commitURL).then(respose => {
+        this.commits = respose.data
+      })
+    },
+    handleCreatePdf () {
+      let head = this.columns.map(col => col.title)
+      let body = this.commits.map(commit => {
+        let tmp = []
+        tmp.push(commit.sha.slice(0, 7))
+        tmp.push(commit.commit.message.split('\n').pop())
+        tmp.push(commit.commit.author.name)
+        tmp.push(commit.commit.author.email)
+        tmp.push(moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
+        return tmp
+      })
+      let docDefinition = {
+        content: [{
+          layout: 'lightHorizontalLines',
+          table: {
+            headerRows: 1,
+            body: [head, ...body]
+          }
+        }]
+      }
+
+      pdfMake.createPdf(docDefinition).open()
+    },
+    handleVerCode () {
+      this.$http.get('/ajax/get-vercode').then(res => {
+        this.$Message.info('验证码：' + res.data.vercode)
+
+        let timesRun = res.data.times
+        this.second = timesRun
+        let interval = setInterval(_ => {
+          timesRun -= 1
+          this.second = timesRun
+          if (timesRun === 0) {
+            clearInterval(interval)
+          }
+        }, 1000)
+      })
+    }
+  }
 }
 </script>
 

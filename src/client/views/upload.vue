@@ -41,70 +41,70 @@
 <script>
 import Paper from '@/components/paper'
 export default {
-    data () {
-        return {
-            defaultList: [],
-            imgUrl: '',
-            visible: false,
-            uploadList: []
-        }
-    },
-    components: {
-        Paper
-    },
-    methods: {
-        handleView (url) {
-            this.imgUrl = url
-            this.visible = true
-        },
-        handleRemove (file) {
-            this.$http.get('/ajax/qndelete', {
-                params: {
-                    key: file.key
-                }
-            }).then(res => {
-                if (res.data.success) {
-                    const fileList = this.$refs.upload.fileList
-                    this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
-                } else {
-                    this.$Message.info(res.data.msg.name)
-                }
-            })
-        },
-        handleSuccess (res, file) {
-            file.url = res.data.src
-            file.key = res.data.key
-        },
-        handleFormatError (file) {
-            this.$Notice.warning({
-                title: '文件格式不正确',
-                desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg、png、jpeg 或 git 格式的图片。'
-            })
-        },
-        handleMaxSize (file) {
-            this.$Notice.warning({
-                title: '超出文件大小限制',
-                desc: '文件 ' + file.name + ' 太大，不能超过 2M。'
-            })
-        },
-        handleBeforeUpload () {
-            const check = this.uploadList.length < 5
-            if (!check) {
-                this.$Notice.warning({
-                    title: '最多只能上传 5 张图片。'
-                })
-            }
-            return check
-        }
-    },
-    mounted () {
-        this.$http.get('/ajax/qnlist').then(res => {
-            this.defaultList = res.data.data
-            setTimeout(_ => {
-                this.uploadList = this.$refs.upload.fileList
-            }, 0)
-        })
+  data () {
+    return {
+      defaultList: [],
+      imgUrl: '',
+      visible: false,
+      uploadList: []
     }
+  },
+  components: {
+    Paper
+  },
+  methods: {
+    handleView (url) {
+      this.imgUrl = url
+      this.visible = true
+    },
+    handleRemove (file) {
+      this.$http.get('/ajax/qndelete', {
+        params: {
+          key: file.key
+        }
+      }).then(res => {
+        if (res.data.success) {
+          const fileList = this.$refs.upload.fileList
+          this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
+        } else {
+          this.$Message.info(res.data.msg.name)
+        }
+      })
+    },
+    handleSuccess (res, file) {
+      file.url = res.data.src
+      file.key = res.data.key
+    },
+    handleFormatError (file) {
+      this.$Notice.warning({
+        title: '文件格式不正确',
+        desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg、png、jpeg 或 git 格式的图片。'
+      })
+    },
+    handleMaxSize (file) {
+      this.$Notice.warning({
+        title: '超出文件大小限制',
+        desc: '文件 ' + file.name + ' 太大，不能超过 2M。'
+      })
+    },
+    handleBeforeUpload () {
+      const check = this.uploadList.length < 5
+      if (!check) {
+        this.$Notice.warning({
+          title: '最多只能上传 5 张图片。'
+        })
+      }
+      return check
+    }
+  },
+  mounted () {
+    this.$http.get('/ajax/qnlist').then(res => {
+      this.defaultList = res.data.data
+      setTimeout(_ => {
+        this.uploadList = this.$refs.upload.fileList
+      }, 0)
+    })
+  }
 }
 </script>
 
