@@ -1,5 +1,4 @@
 const path = require('path')
-const webpack = require('webpack')
 const Copy = require('copy-webpack-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
 const PrerenderSpaPlugin = require('prerender-spa-plugin')
@@ -20,13 +19,6 @@ module.exports = {
     config.entry.vendor = './src/client/vendor'
     // resolve
     config.resolve.alias['@'] = resolve('./src/client')
-    // plugin
-    config.plugins.push(
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
-      })
-    )
 
     if (isProd()) {
       config.plugins.push(
