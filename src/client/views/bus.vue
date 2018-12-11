@@ -39,7 +39,7 @@ export default {
   methods: {
     getCaptcha () {
       this.$http.get('/ajax/get-captcha').then(res => {
-        $('.captcha').html(res.data)
+        document.querySelector('.captcha').innerHTML = res.data
       })
     },
     getPositon (e) {
