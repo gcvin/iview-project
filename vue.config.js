@@ -7,10 +7,12 @@ const resolve = pathname => path.resolve(__dirname, pathname)
 
 const isProd = () => process.env.NODE_ENV === 'production'
 
+const proxy = 'http://gcvin.herokuapp.com'
+
 module.exports = {
   lintOnSave: false,
   devServer: {
-    proxy: 'http://gcvin.herokuapp.com'
+    proxy: proxy
   },
   outputDir: resolve(isProd() ? './src/server/public' : './dist'),
   configureWebpack: config => {
@@ -36,7 +38,7 @@ module.exports = {
           routes: ['/'],
           server: {
             proxy: {
-              '/ajax': 'http://localhost:4000'
+              '/ajax': proxy
             }
           }
         })
