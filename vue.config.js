@@ -11,7 +11,7 @@ const isProd = () => process.env.NODE_ENV === 'production'
 module.exports = {
   lintOnSave: false,
   devServer: {
-    proxy: 'http://localhost:4000'
+    proxy: 'http://gcvin.herokuapp.com'
   },
   outputDir: resolve(isProd() ? './src/server/public' : './dist'),
   configureWebpack: config => {
