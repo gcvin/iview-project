@@ -17,11 +17,11 @@
                     <icon-svg icon-class="anquan" />
                 </h2>
                 <ul class="icss">
-                    <li><a href="/bus">Bus</a></li>
-                    <li><a href="/github">Github</a></li>
-                    <li><a href="/mongo">Mongo</a></li>
-                    <li><a href="/upload">Upload</a></li>
-                    <li><a href="/minivue">MiniVue</a></li>
+                    <li><router-link to="/bus">Bus</router-link></li>
+                    <li><router-link to="/github">Github</router-link></li>
+                    <li><router-link to="/mongo">Mongo</router-link></li>
+                    <li><router-link to="/upload">Upload</router-link></li>
+                    <li><router-link to="/minivue">MiniVue</router-link></li>
                 </ul>
             </Col>
         </Row>

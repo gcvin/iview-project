@@ -110,6 +110,10 @@ export default {
         }
       }
 
+      if (carry) {
+        result = carry + result
+      }
+
       this.binary = result
     }
   },
