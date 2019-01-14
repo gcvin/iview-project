@@ -30,6 +30,7 @@ export default {
 
       html2canvas(root, {
         scale: 1,
+        windowWidth: root.scrollWidth,
         logging: false,
         proxy: '/proxy/image'
       }).then(canvas => {
@@ -108,15 +109,7 @@ export default {
           const ctx = newCanvas.getContext('2d')
           ctx.drawImage(canvas, area.x, area.y, area.width, area.height, 0, 0, area.width, area.height)
 
-          vm.$Modal.info({
-            title: '截图',
-            width: area.width + 82,
-            content: `<img src="${newCanvas.toDataURL()}" width="100%" height="100%"></img>`,
-            onOk () {
-              vm.isbusy = false
-              root.removeChild(shotsCanvas)
-            }
-          })
+          shotsFinish(newCanvas)
         }
 
         function createCanvas (height, width, style = {}) {
@@ -130,6 +123,18 @@ export default {
           }
 
           return canvas
+        }
+
+        function shotsFinish (canvas) {
+          vm.$Modal.info({
+            title: '截图',
+            width: area.width + 82,
+            content: `<img src="${canvas.toDataURL()}" width="100%" height="100%"></img>`,
+            onOk () {
+              vm.isbusy = false
+              root.removeChild(shotsCanvas)
+            }
+          })
         }
       })
     }

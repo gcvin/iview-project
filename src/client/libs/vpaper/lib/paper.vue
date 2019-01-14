@@ -1,8 +1,7 @@
 <template lang="html">
     <div class="vpaper">
-        <Input-number :max="20" :min="1" v-model="images" size="small" @on-change="getImages"></Input-number>
         <ul class="pages">
-            <li class="paper" data-left :style="{animationDuration: duration}">
+            <li class="paper" data-left :style="{animationDuration: `${duration / 1000}s`}">
                 <div class="page page-1-back">
                     <img :src="urls[0]" height="100%" width="100%">
                 </div>
@@ -10,7 +9,7 @@
                     <img :src="urls[1]" height="100%" width="100%">
                 </div>
             </li>
-            <li class="paper" data-right :style="{animationDuration: duration}">
+            <li class="paper" data-right :style="{animationDuration: `${duration / 1000}s`}">
                 <div class="page page-2">
                     <img :src="urls[2]" height="100%" width="100%">
                 </div>
@@ -18,7 +17,7 @@
                     <img :src="urls[3]" height="100%" width="100%">
                 </div>
             </li>
-            <li v-for="n in images" v-if="n > 2" :key="n" class="paper" :style="{animationDuration: duration}">
+            <li v-for="n in pages" v-if="n > 2" :key="n" class="paper" :style="{animationDuration: `${duration / 1000}s`}">
                 <div class="page">
                     <img :src="urls[2*n-2]" height="100%" width="100%">
                 </div>
@@ -33,49 +32,29 @@
 </template>
 
 <script>
+import { Message } from 'iview'
 export default {
   name: 'paper',
   data () {
     return {
-      page: 1,
-      images: 1,
-      urls: []
+      page: 1
     }
   },
   props: {
     pages: {
       type: Number,
-      required: true
+      default: 6
     },
-    delay: {
+    duration: {
       type: Number,
-      required: true
+      default: 500
+    },
+    urls: {
+      type: Array,
+      default: () => []
     }
-  },
-  computed: {
-    duration () {
-      return `${this.delay / 1000}s`
-    }
-  },
-  created () {
-    this.images = this.pages
-    this.getImages(this.images)
   },
   methods: {
-    getImages (current) {
-      let next = document.querySelector('.paper[data-right]')
-      let prev = document.querySelector('.paper[data-left]')
-
-      this.removePageState(prev, next)
-      next = document.querySelector('.paper')
-      this.addPageState(null, next)
-
-      if (current * 2 > this.urls.length) {
-        this.$http.get('/ajax/images?pages=' + this.images * 2).then(rs => {
-          this.urls = rs.data.urls
-        })
-      }
-    },
     goToPrevPage () {
       let next = document.querySelector('.paper[data-right]')
       let prev = document.querySelector('.paper[data-left]')
@@ -83,7 +62,7 @@ export default {
       this.checkPageState(prev, next)
 
       if (!prev) {
-        return this.$Message.warning('已经是第一页了')
+        return Message.warning('已经是第一页了')
       }
 
       prev.classList.add('current')
@@ -96,7 +75,7 @@ export default {
         prev = next.previousElementSibling
         this.addPageState(prev, next)
         this.page--
-      }, this.delay)
+      }, this.duration)
     },
     goToNextPage () {
       let next = document.querySelector('.paper[data-right]')
@@ -105,7 +84,7 @@ export default {
       this.checkPageState(prev, next)
 
       if (!next) {
-        return this.$Message.warning('已经是最后一页了')
+        return Message.warning('已经是最后一页了')
       }
 
       next.classList.add('current')
@@ -117,7 +96,7 @@ export default {
         next = prev.nextElementSibling
         this.addPageState(prev, next)
         this.page++
-      }, this.delay)
+      }, this.duration)
     },
     removePageState (prev, next) {
       if (next) {

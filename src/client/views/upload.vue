@@ -26,20 +26,23 @@
             type="drag"
             name="image"
             action="/ajax/qnupload"
-            style="display: inline-block;width:58px;">
-            <div style="width: 58px;height:58px;line-height: 58px;">
-                <Icon type="ios-camera" size="20" style="line-height: 58px;"></Icon>
+            style="display:inline-block;width:58px;">
+            <div style="width:58px;height:58px;line-height:58px;">
+                <Icon type="ios-camera" size="20" style="line-height:58px;"></Icon>
             </div>
         </Upload>
         <Modal title="查看图片" v-model="visible">
             <img :src="imgUrl" v-if="visible" style="width: 100%">
         </Modal>
-        <Paper :pages="6" :delay="500" />
+        <vpaper/>
     </div>
 </template>
 
 <script>
-import Paper from '@/components/paper'
+import vpaper from '@/components/paper'
+// import vpaper from '@/libs/vpaper'
+// import Vue from 'vue'
+// Vue.use(vpaper)
 export default {
   data () {
     return {
@@ -50,7 +53,7 @@ export default {
     }
   },
   components: {
-    Paper
+    vpaper
   },
   methods: {
     handleView (url) {
@@ -103,6 +106,8 @@ export default {
       setTimeout(_ => {
         this.uploadList = this.$refs.upload.fileList
       }, 0)
+    }).catch(() => {
+      this.$Message.error('获取七牛云图片出错！')
     })
   }
 }
