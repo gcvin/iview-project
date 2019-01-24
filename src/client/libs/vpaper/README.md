@@ -19,11 +19,12 @@ Vue.use(vpaper);
 
 #### 基本用法  
 ```html
-<vpaper :pages="6" :delay="500"></vpaper>
+<vpaper :pages="6" :duration="500"></vpaper>
 ```
 
 ### API  
 | 参数 | 说明 | 类型 | 默认值 |  
 | - | :- | :- | :-: |  
 | pages | paper总页数 | Number | 6 | 
-| delay | 翻页动画持续时间| Number | 500 |
+| duration | 翻页动画持续时间 | Number | 500 |
+| urls | 图片地址数组，长度为pages两倍 | Array | [] |

@@ -1,6 +1,6 @@
 {
   "name": "vpaper",
-  "version": "0.0.6",
+  "version": "0.1.1",
   "description": "基于vue的paper翻页动画",
   "main": "index.js",
   "directories": {
