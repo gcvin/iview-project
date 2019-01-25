@@ -17,7 +17,7 @@ app.use(views(path.join(__dirname, 'views'), { extension: 'ejs' }))
 
 app.use(logger())
 app.use(koaBody())
-app.use(serve(path.join(__dirname, 'public')))
+app.use(serve(path.join(__dirname, 'public'), { maxage: 24 * 60 * 60 * 1000 }))
 app.use(session(app))
 
 app.use(async (ctx, next) => {
