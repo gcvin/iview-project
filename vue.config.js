@@ -1,7 +1,7 @@
 const path = require('path')
 const Copy = require('copy-webpack-plugin')
 const Visualizer = require('webpack-visualizer-plugin')
-const PrerenderSpaPlugin = require('prerender-spa-plugin')
+// const PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 const resolve = pathname => path.resolve(__dirname, pathname)
 
@@ -31,17 +31,17 @@ module.exports = {
           from: resolve('./src/client/public'),
           to: resolve('./src/server/public'),
           ignore: ['index.html', '.DS_Store']
-        }]),
-        new PrerenderSpaPlugin({
-          staticDir: resolve('./src/server/public'),
-          indexPath: resolve('./src/server/views/index.html'),
-          routes: ['/'],
-          server: {
-            proxy: {
-              '/ajax': proxy
-            }
-          }
-        })
+        }])
+        // new PrerenderSpaPlugin({
+        //   staticDir: resolve('./src/server/public'),
+        //   indexPath: resolve('./src/server/views/index.html'),
+        //   routes: ['/'],
+        //   server: {
+        //     proxy: {
+        //       '/ajax': proxy
+        //     }
+        //   }
+        // })
       )
     }
   },
