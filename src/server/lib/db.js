@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
 import bluebird from 'bluebird'
 
-// import config from './config'
+import config from '../config'
 
 mongoose.Promise = bluebird
 
-const DB_URL = 'mongodb://gcvin:gcvin@ds119565.mlab.com:19565/mongo'
-// const DB_URL = config.DB.url
+// const DB_URL = 'mongodb://gcvin:gcvin@ds119565.mlab.com:19565/mongo'
+const DB_URL = config.DB.url
 
 mongoose.connect(DB_URL, { useNewUrlParser: true })
 

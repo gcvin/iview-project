@@ -33,7 +33,7 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes())
 
-const server = app.listen(process.env.PORT || 4000, _ => {
+const server = app.listen(process.env.PORT || 80, _ => {
   const port = server.address().port
   console.log(`Server listening at http://localhost:${port}`)
 })
