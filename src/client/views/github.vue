@@ -13,11 +13,8 @@
 </template>
 
 <script>
-import pdfMake from 'pdfmake/build/pdfmake.min.js'
-import pdfFonts from 'pdfmake/build/vfs_fonts.js'
+import pdfMake from 'pdfMake'
 import moment from 'moment'
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export default {
   data: function () {

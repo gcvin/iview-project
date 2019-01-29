@@ -1,6 +1,6 @@
 const path = require('path')
 const Copy = require('copy-webpack-plugin')
-const Visualizer = require('webpack-visualizer-plugin')
+const Analyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 // const PrerenderSpaPlugin = require('prerender-spa-plugin')
 
 const resolve = pathname => path.resolve(__dirname, pathname)
@@ -18,15 +18,14 @@ module.exports = {
   configureWebpack: config => {
     // entry
     config.entry.app = './src/client/main'
-    config.entry.vendor = './src/client/vendor'
     // resolve
     config.resolve.alias['@'] = resolve('./src/client')
+    // externals
+    config.externals = { pdfMake: 'pdfMake' }
 
     if (isProd()) {
       config.plugins.push(
-        new Visualizer({
-          filename: '../views/stats.html' // 相对于output.path
-        }),
+        new Analyzer(),
         new Copy([{
           from: resolve('./src/client/public'),
           to: resolve('./src/server/public'),
