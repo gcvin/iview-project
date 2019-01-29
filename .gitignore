@@ -7,6 +7,5 @@ node_modules/
 src/server/public/
 src/server/public/*
 src/server/views/index.html
-src/server/views/stats.html
 src/client/config/*.tmp
 src/client/config/env.js

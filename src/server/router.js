@@ -23,10 +23,6 @@ const renderHtml = (ctx, fname) => {
 // 七牛相关配置信息
 const client = qn.create(config.QINIU)
 
-router.get('/stats', async (ctx) => {
-  renderHtml(ctx, 'stats')
-})
-
 router.get('/minivue', async (ctx) => {
   renderHtml(ctx, 'minivue')
 })
