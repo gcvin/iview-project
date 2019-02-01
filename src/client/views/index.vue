@@ -21,6 +21,7 @@
                     <li><router-link to="/github">Github</router-link></li>
                     <li><router-link to="/mongo">Mongo</router-link></li>
                     <li><router-link to="/upload">Upload</router-link></li>
+                    <li><router-link to="/cropper">Cropper</router-link></li>
                     <li><router-link to="/minivue">MiniVue</router-link></li>
                 </ul>
             </Col>

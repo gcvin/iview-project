@@ -33,6 +33,13 @@ const routers = [
       title: 'upload'
     },
     component: (resolve) => require(['@/views/upload.vue'], resolve)
+  },
+  {
+    path: '/cropper',
+    meta: {
+      title: 'cropper'
+    },
+    component: (resolve) => require(['@/views/cropper.vue'], resolve)
   }
 ]
 export default routers
