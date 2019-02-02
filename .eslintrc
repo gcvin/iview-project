@@ -1,5 +1,8 @@
 {
   "root": true,
+  "env": {
+    "node": true
+  },
   "extends": [
     "plugin:vue/essential",
     "@vue/standard"
@@ -10,5 +13,8 @@
       "x-invalid-end-tag": false
     }],
     "no-new": "off"
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
   }
 }

@@ -2,10 +2,10 @@ import Vue from 'vue'
 import iView from 'iview'
 import VueRouter from 'vue-router'
 import axios from 'axios'
-import vpaper from 'vpaper'
 import Routers from '@/router'
 import Util from '@/libs/util'
 import App from '@/app.vue'
+import './registerServiceWorker'
 import 'iview/dist/styles/iview.css'
 
 // 打开vue-devtools调试工具
@@ -15,7 +15,6 @@ Vue.config.devtools = true
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
 Vue.use(iView)
-Vue.use(vpaper)
 
 // 路由配置
 const RouterConfig = {

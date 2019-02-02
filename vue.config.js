@@ -7,7 +7,7 @@ const resolve = pathname => path.resolve(__dirname, pathname)
 
 const isProd = () => process.env.NODE_ENV === 'production'
 
-const proxy = 'http://gcvin.herokuapp.com'
+const proxy = 'https://gcvin.cn'
 
 module.exports = {
   lintOnSave: false,
@@ -16,11 +16,8 @@ module.exports = {
   },
   outputDir: resolve(isProd() ? './src/server/public' : './dist'),
   configureWebpack: config => {
-    // entry
     config.entry.app = './src/client/main'
-    // resolve
     config.resolve.alias['@'] = resolve('./src/client')
-    // externals
     config.externals = { pdfMake: 'pdfMake' }
 
     if (isProd()) {
