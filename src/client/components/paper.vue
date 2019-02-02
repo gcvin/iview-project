@@ -27,8 +27,8 @@
                 </div>
             </li>
         </ul>
-        <Button type="primary" @click="goToPrevPage">上一页</Button>
-        <Button type="primary" @click="goToNextPage">下一页</Button>
+        <Button type="primary" @click="goToPrevPage" :disabled="isPreving">上一页</Button>
+        <Button type="primary" @click="goToNextPage" :disabled="isNexting">下一页</Button>
     </div>
 </template>
 
@@ -40,7 +40,9 @@ export default {
     return {
       page: 1,
       images: 1,
-      urls: []
+      urls: [],
+      isPreving: false,
+      isNexting: false
     }
   },
   props: {
@@ -82,6 +84,7 @@ export default {
         return Message.warning('已经是第一页了')
       }
 
+      this.isPreving = true
       prev.classList.add('current')
       prev.previousElementSibling && prev.previousElementSibling.classList.add('prev')
       prev.setAttribute('data-begin-animate', true)
@@ -91,6 +94,7 @@ export default {
         next = prev
         prev = next.previousElementSibling
         this.addPageState(prev, next)
+        this.isPreving = false
         this.page--
       }, this.duration)
     },
@@ -104,6 +108,7 @@ export default {
         return Message.warning('已经是最后一页了')
       }
 
+      this.isNexting = true
       next.classList.add('current')
       next.setAttribute('data-begin-animate', true)
 
@@ -112,6 +117,7 @@ export default {
         prev = next
         next = prev.nextElementSibling
         this.addPageState(prev, next)
+        this.isNexting = false
         this.page++
       }, this.duration)
     },
