@@ -1,8 +1,8 @@
 <template lang="html">
-    <div>
-        {{ value }}
-        <Button @click="handleClick">验证</Button>
-    </div>
+  <div>
+    {{ value }}
+    <Button @click="handleClick">验证</Button>
+  </div>
 </template>
 
 <script>
@@ -21,11 +21,13 @@ export default {
   },
   methods: {
     handleClick () {
-      this.$http.post('/ajax/ver-captcha', {
-        value: this.value
-      }).then(res => {
-        this.$Message.info(res.data)
-      })
+      this.$http
+        .post('/ajax/ver-captcha', {
+          value: this.value
+        })
+        .then(res => {
+          this.$Message.info(res.data)
+        })
     }
   }
 }

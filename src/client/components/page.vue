@@ -1,34 +1,29 @@
 <template lang="html">
-    <div class="page">
-        <a :href="resolveUrl(current - 1)">
-            <Button icon="ios-arrow-back" :disabled="isFirst" type="primary" ghost></Button>
-        </a>
+  <div class="page">
+    <a :href="resolveUrl(current - 1)">
+      <Button icon="ios-arrow-back" :disabled="isFirst" type="primary" ghost></Button>
+    </a>
 
-        <a v-for="num in prevArr" :href="resolveUrl(num)" class="margin" :key="num">
-            <Button v-if="num === 'prev'" icon="ios-arrow-left" class="prev" type="primary" ghost></Button>
-            <Button v-else type="primary" ghost>{{ num }}</Button>
-        </a>
+    <a v-for="num in prevArr" :href="resolveUrl(num)" class="margin" :key="num">
+      <Button v-if="num === 'prev'" icon="ios-arrow-left" class="prev" type="primary" ghost></Button>
+      <Button v-else type="primary" ghost>{{ num }}</Button>
+    </a>
 
-        <Button disabled>{{ current }}</Button>
+    <Button disabled>{{ current }}</Button>
 
-        <a v-for="num in nextArr" :href="resolveUrl(num)" class="margin" :key="num">
-            <Button v-if="num === 'next'" icon="ios-arrow-right" class="next" type="primary" ghost></Button>
-            <Button v-else type="primary" ghost>{{ num }}</Button>
-        </a>
+    <a v-for="num in nextArr" :href="resolveUrl(num)" class="margin" :key="num">
+      <Button v-if="num === 'next'" icon="ios-arrow-right" class="next" type="primary" ghost></Button>
+      <Button v-else type="primary" ghost>{{ num }}</Button>
+    </a>
 
-        <a :href="resolveUrl(current + 1)">
-            <Button icon="ios-arrow-forward" :disabled="isLast" type="primary" ghost></Button>
-        </a>
-    </div>
+    <a :href="resolveUrl(current + 1)">
+      <Button icon="ios-arrow-forward" :disabled="isLast" type="primary" ghost></Button>
+    </a>
+  </div>
 </template>
 <script>
 export default {
-  props: [
-    'url',
-    'current',
-    'size',
-    'total'
-  ],
+  props: ['url', 'current', 'size', 'total'],
   computed: {
     totalPage () {
       return Math.ceil(this.total / this.size)
@@ -53,7 +48,9 @@ export default {
       return arr
     },
     nextArr () {
-      let arr = [this.current + 1, this.current + 2].filter(item => item <= this.totalPage)
+      let arr = [this.current + 1, this.current + 2].filter(
+        item => item <= this.totalPage
+      )
       if (this.current === this.totalPage - 4) {
         arr.push(this.totalPage - 1)
       }
@@ -80,13 +77,13 @@ export default {
 }
 </script>
 <style lang="css">
-    .page {
-        text-align: center;
-    }
-    .margin {
-        margin: 0 4px;
-    }
-    /*.prev:after, .next:after {
+.page {
+  text-align: center;
+}
+.margin {
+  margin: 0 4px;
+}
+/*.prev:after, .next:after {
         content: "\2022\2022\2022";
         display: block;
         letter-spacing: 1px;
@@ -96,13 +93,13 @@ export default {
     .next:hover:after, .next i, .prev:hover:after, .prev i {
         display: none;
     }*/
-    /*.next:hover i, .prev:hover i {
+/*.next:hover i, .prev:hover i {
         display: inline;
     }*/
-    .prev i:after {
-        content: "\F3D2";
-    }
-    .next i:after {
-        content: "\F3D3";
-    }
+.prev i:after {
+  content: "\F3D2";
+}
+.next i:after {
+  content: "\F3D3";
+}
 </style>

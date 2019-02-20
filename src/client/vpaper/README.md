@@ -2,7 +2,7 @@
 vue paper 翻页动画
 
 ### demo地址
-[demo演示页面](http://gcvin.herokuapp.com/upload/ 'paper 翻页动画演示页面')
+[demo演示页面](http://gcvin.cn/upload/ 'paper 翻页动画演示页面')
 
 ### 插件的安装
 #### NPM 
@@ -19,7 +19,7 @@ Vue.use(vpaper);
 
 #### 基本用法  
 ```html
-<vpaper :pages="6" :duration="500"></vpaper>
+<vpaper :pages="6" :duration="500" :urls="[]"/>
 ```
 
 ### API  

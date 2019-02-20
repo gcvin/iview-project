@@ -1,15 +1,15 @@
 <template lang="html">
-    <div class="github">
-        <Radio-group v-model="currentBranch" @on-change="getCommits">
-            <Radio v-for="branch in branches" :label="branch.name" :key="branch.name"></Radio>
-        </Radio-group>
-        <Input-number :max="20" :min="1" v-model="size" size="small" @on-change="getCommits"></Input-number>
-        <Button type="primary" size="small" @click="handleCreatePdf">生成PDF</Button>
-        <Button type="primary" size="small" @click="handleVerCode" :disabled="!!second">{{ btnText }}</Button>
-        <br>
-        <br>
-        <Table :columns="columns" :data="commits"></Table>
-    </div>
+  <div class="github">
+    <Radio-group v-model="currentBranch" @on-change="getCommits">
+      <Radio v-for="branch in branches" :label="branch.name" :key="branch.name"></Radio>
+    </Radio-group>
+    <Input-number :max="20" :min="1" v-model="size" size="small" @on-change="getCommits"></Input-number>
+    <Button type="primary" size="small" @click="handleCreatePdf">生成PDF</Button>
+    <Button type="primary" size="small" @click="handleVerCode" :disabled="!!second">{{ btnText }}</Button>
+    <br>
+    <br>
+    <Table :columns="columns" :data="commits"></Table>
+  </div>
 </template>
 
 <script>
@@ -28,17 +28,24 @@ export default {
         {
           title: 'SHA',
           render: (h, params) => {
-            return h('a', {
-              attrs: {
-                href: params.row.html_url
-              }
-            }, params.row.sha.slice(0, 7))
+            return h(
+              'a',
+              {
+                attrs: {
+                  href: params.row.html_url
+                }
+              },
+              params.row.sha.slice(0, 7)
+            )
           }
         },
         {
           title: 'Message',
           render: (h, params) => {
-            let message = params.row.commit.message.replace(/^Merge\spull\srequest\s(#\d+).*/, '$1')
+            let message = params.row.commit.message.replace(
+              /^Merge\spull\srequest\s(#\d+).*/,
+              '$1'
+            )
             let newline = message.indexOf('\n')
             return h('span', newline > 0 ? message.slice(0, newline) : message)
           }
@@ -61,7 +68,12 @@ export default {
         {
           title: 'Date',
           render: (h, params) => {
-            return h('span', moment(params.row.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
+            return h(
+              'span',
+              moment(params.row.commit.author.date).format(
+                'YYYY-MM-DD HH:mm:ss'
+              )
+            )
           }
         }
       ]
@@ -81,7 +93,9 @@ export default {
   },
   methods: {
     getCommits () {
-      let commitURL = `https://api.github.com/repos/gcvin/iview-project/commits?per_page=${this.size}&sha=${this.currentBranch}`
+      let commitURL = `https://api.github.com/repos/gcvin/iview-project/commits?per_page=${
+        this.size
+      }&sha=${this.currentBranch}`
       this.$http.get(commitURL).then(respose => {
         this.commits = respose.data
       })
@@ -94,17 +108,21 @@ export default {
         tmp.push(commit.commit.message.split('\n').pop())
         tmp.push(commit.commit.author.name)
         tmp.push(commit.commit.author.email)
-        tmp.push(moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss'))
+        tmp.push(
+          moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss')
+        )
         return tmp
       })
       let docDefinition = {
-        content: [{
-          layout: 'lightHorizontalLines',
-          table: {
-            headerRows: 1,
-            body: [head, ...body]
+        content: [
+          {
+            layout: 'lightHorizontalLines',
+            table: {
+              headerRows: 1,
+              body: [head, ...body]
+            }
           }
-        }]
+        ]
       }
 
       pdfMake.createPdf(docDefinition).open()
@@ -130,7 +148,7 @@ export default {
 
 <style lang="css">
 .github {
-    width: 800px;
-    margin: 0 auto;
+  width: 800px;
+  margin: 0 auto;
 }
 </style>
