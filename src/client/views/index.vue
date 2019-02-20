@@ -1,32 +1,44 @@
 <template>
-    <div class="index">
-        <Row type="flex" justify="center" align="middle">
-            <Col span="24">
-                <h1>
-                    <img src="@/images/logo.png">
-                </h1>
-                <h2>
-                    <p>{{ slogan }}</p>
-                    <Button type="primary" ghost @click="handleStart" class="tilt">Start iView</Button>
-                    <br>
-                    <br>
-                    <icon-svg icon-class="youxiang" />
-                    <Button type="primary" ghost @click="handleRecursion">递归</Button>
-                    <Button type="primary" ghost @click="handlePromise">Promise</Button>
-                    <Button type="primary" ghost @click="handleAwait">Async/Await</Button>
-                    <icon-svg icon-class="anquan" />
-                </h2>
-                <ul class="icss">
-                    <li><router-link to="/bus">Bus</router-link></li>
-                    <li><router-link to="/github">Github</router-link></li>
-                    <li><router-link to="/mongo">Mongo</router-link></li>
-                    <li><router-link to="/upload">Upload</router-link></li>
-                    <li><router-link to="/cropper">Cropper</router-link></li>
-                    <li><router-link to="/minivue">MiniVue</router-link></li>
-                </ul>
-            </Col>
-        </Row>
-    </div>
+  <div class="index">
+    <Row type="flex" justify="center" align="middle">
+      <Col span="24">
+        <h1>
+          <img src="@/images/logo.png">
+        </h1>
+        <h2>
+          <p>{{ slogan }}</p>
+          <Button type="primary" ghost @click="handleStart" class="tilt">Start iView</Button>
+          <br>
+          <br>
+          <icon-svg icon-class="youxiang"/>
+          <Button type="primary" ghost @click="handleRecursion">递归</Button>
+          <Button type="primary" ghost @click="handlePromise">Promise</Button>
+          <Button type="primary" ghost @click="handleAwait">Async/Await</Button>
+          <icon-svg icon-class="anquan"/>
+        </h2>
+        <ul class="icss">
+          <li>
+            <router-link to="/bus">Bus</router-link>
+          </li>
+          <li>
+            <router-link to="/github">Github</router-link>
+          </li>
+          <li>
+            <router-link to="/mongo">Mongo</router-link>
+          </li>
+          <li>
+            <router-link to="/upload">Upload</router-link>
+          </li>
+          <li>
+            <router-link to="/cropper">Cropper</router-link>
+          </li>
+          <li>
+            <router-link to="/minivue">MiniVue</router-link>
+          </li>
+        </ul>
+      </Col>
+    </Row>
+  </div>
 </template>
 <script>
 import VanillaTilt from 'vanilla-tilt'
@@ -63,8 +75,8 @@ export default {
       })
     },
     handleRecursion () {
-      let vm = this
-                ;(function next (len, curr) {
+      let vm = this;
+      (function next (len, curr) {
         if (curr < len) {
           vm.$Message.info({
             content: `第${vm.arr[curr]}条消息`,
@@ -78,7 +90,7 @@ export default {
     },
     handlePromise () {
       let vm = this
-      vm.promiseForEach(vm.arr, (curr) => {
+      vm.promiseForEach(vm.arr, curr => {
         return new Promise((resolve, reject) => {
           vm.$Message.info({
             content: `第${curr}条消息`,
@@ -110,7 +122,7 @@ export default {
       let result = Promise.resolve()
       arr.forEach(item => {
         result = result.then(() => {
-          return cb(item).then((res) => {
+          return cb(item).then(res => {
             realResult.push(res)
           })
         })
@@ -124,52 +136,52 @@ export default {
 }
 </script>
 <style scoped lang="less">
-    .index{
-        width: 100%;
-        h1{
-            height: 150px;
-            img{
-                height: 100%;
-            }
-        }
-        h2{
-            color: #666;
-            p{
-                margin: 0 0 50px;
-            }
-        }
-        .ivu-row-flex{
-            height: 100%;
-        }
-        .icss{
-            margin-top: 40px;
-            li{
-                display: inline-block;
-                position: relative;
-                padding: 10px;
-                font-size: 14px;
-                line-height: 1;
-                transition: 0.2s all linear;
-                cursor: pointer;
-                &::before{
-                    content: '';
-                    position: absolute;
-                    bottom: 0;
-                    left: 100%;
-                    height: 1px;
-                    width: 0;
-                    border-bottom: 1px solid #2d8cf0;
-                    transition: 0.2s all linear;
-                }
-                &:hover::before{
-                    left: 0;
-                    width: 100%;
-                    transition-delay: 0.1s;
-                }
-                &:hover ~ li::before{
-                    left: 0;
-                }
-            }
-        }
+.index {
+  width: 100%;
+  h1 {
+    height: 150px;
+    img {
+      height: 100%;
     }
+  }
+  h2 {
+    color: #666;
+    p {
+      margin: 0 0 50px;
+    }
+  }
+  .ivu-row-flex {
+    height: 100%;
+  }
+  .icss {
+    margin-top: 40px;
+    li {
+      display: inline-block;
+      position: relative;
+      padding: 10px;
+      font-size: 14px;
+      line-height: 1;
+      transition: 0.2s all linear;
+      cursor: pointer;
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 100%;
+        height: 1px;
+        width: 0;
+        border-bottom: 1px solid #2d8cf0;
+        transition: 0.2s all linear;
+      }
+      &:hover::before {
+        left: 0;
+        width: 100%;
+        transition-delay: 0.1s;
+      }
+      &:hover ~ li::before {
+        left: 0;
+      }
+    }
+  }
+}
 </style>

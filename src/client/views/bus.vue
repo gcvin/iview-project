@@ -60,7 +60,7 @@ export default {
       }
 
       while (n) {
-        result = n % 2 + result
+        result = (n % 2) + result
         n = ~~(n / 2)
         count++
       }
@@ -73,7 +73,7 @@ export default {
 
       while (m) {
         result = result + ~~(m * 2)
-        m = m * 2 % 1
+        m = (m * 2) % 1
         count++
         if (!Number(result)) {
           zero++
@@ -92,8 +92,14 @@ export default {
       const leftLen = Math.max(addend[0].length, summand[0].length)
       const rightLen = Math.max(addend[1].length, summand[1].length)
 
-      addend = addend[0].padStart(leftLen, '0') + '.' + addend[1].padEnd(rightLen, '0')
-      summand = summand[0].padStart(leftLen, '0') + '.' + summand[1].padEnd(rightLen, '0')
+      addend =
+        addend[0].padStart(leftLen, '0') +
+        '.' +
+        addend[1].padEnd(rightLen, '0')
+      summand =
+        summand[0].padStart(leftLen, '0') +
+        '.' +
+        summand[1].padEnd(rightLen, '0')
 
       let length = addend.length
       let result = ''
@@ -104,7 +110,7 @@ export default {
 
         if (addend[length] !== '.') {
           result = (addend[length] ^ summand[length] ^ carry) + result
-          carry = +((+addend[length] + +summand[length] + carry) > 1)
+          carry = +(+addend[length] + +summand[length] + carry > 1)
         } else {
           result = '.' + result
         }
@@ -121,7 +127,10 @@ export default {
     accurate: function () {
       let result = 0
       let binary = this.binary + '.0'
-      let n = binary.split('.')[0].split('').reverse()
+      let n = binary
+        .split('.')[0]
+        .split('')
+        .reverse()
       let m = binary.split('.')[1].split('')
 
       result += n.reduce((sum, curr, index) => {
@@ -140,84 +149,90 @@ export default {
 
 <style lang="less">
 .bus {
-    width: 500px;
-    margin: 0 auto;
+  width: 500px;
+  margin: 0 auto;
 }
 .active {
-    color: #42b983;
+  color: #42b983;
 }
 
 .bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .arrow {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .arrow:before {
-    border: 10px solid transparent;
-    border-bottom: 10px solid #dddee1;
-    width: 0;
-    height: 0;
-    position: absolute;
-    content: ' ';
-    top: -20px;
-    left: 50%;
-    margin-left: -10px;
-    transition: border .2s ease-in-out;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #dddee1;
+  width: 0;
+  height: 0;
+  position: absolute;
+  content: " ";
+  top: -20px;
+  left: 50%;
+  margin-left: -10px;
+  transition: border 0.2s ease-in-out;
 }
 
 .arrow:after {
-    border: 10px solid transparent;
-    border-bottom: 10px solid #fff;
-    width: 0;
-    height: 0;
-    position: absolute;
-    content: ' ';
-    top: -18px;
-    left: 50%;
-    margin-left: -10px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  width: 0;
+  height: 0;
+  position: absolute;
+  content: " ";
+  top: -18px;
+  left: 50%;
+  margin-left: -10px;
 }
 
 .arrow:hover::before {
-    border-bottom-color: #57a3f3;
+  border-bottom-color: #57a3f3;
 }
 
 .captcha {
-    margin: 10px auto;
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    height: 40px;
-    width: 200px;
+  margin: 10px auto;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  height: 40px;
+  width: 200px;
 
-    &::before {
-        --size: 0;
+  &::before {
+    --size: 0;
 
-        content: '';
-        position: absolute;
-        left: var(--x);
-        top: var(--y);
-        width: var(--size);
-        height: var(--size);
-        background: radial-gradient(circle closest-side, #ff9900, #19be6b, #2d8cf0, transparent);
-        transform: translate(-50%, -50%);
-        transition: width .2s ease, height .2s ease;
-    }
+    content: "";
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(
+      circle closest-side,
+      #ff9900,
+      #19be6b,
+      #2d8cf0,
+      transparent
+    );
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease;
+  }
 
-    &:hover::before {
-        --size: 40px;
-    }
+  &:hover::before {
+    --size: 40px;
+  }
 }
 .double {
-    line-height: 50px;
-    text-align: left;
+  line-height: 50px;
+  text-align: left;
 
-    .plus {
-        display: inline-block;
-        text-align: center;
-        width: 40px;
-    }
+  .plus {
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+  }
 }
 </style>

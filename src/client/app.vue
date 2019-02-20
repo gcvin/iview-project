@@ -1,8 +1,10 @@
 <template>
-    <div id="app">
-        <router-view></router-view>
-        <a class="screen-shots" href="javascript:;" @click="handleShots"><Icon type="md-camera" /></a>
-    </div>
+  <div id="app">
+    <router-view></router-view>
+    <a class="screen-shots" href="javascript:;" @click="handleShots">
+      <Icon type="md-camera"/>
+    </a>
+  </div>
 </template>
 <script>
 import html2canvas from 'html2canvas'
@@ -13,12 +15,8 @@ export default {
       isbusy: false
     }
   },
-  mounted () {
-
-  },
-  beforeDestroy () {
-
-  },
+  mounted () {},
+  beforeDestroy () {},
   methods: {
     handleShots () {
       const vm = this
@@ -107,7 +105,17 @@ export default {
 
           const newCanvas = createCanvas(area.height, area.width)
           const ctx = newCanvas.getContext('2d')
-          ctx.drawImage(canvas, area.x, area.y, area.width, area.height, 0, 0, area.width, area.height)
+          ctx.drawImage(
+            canvas,
+            area.x,
+            area.y,
+            area.width,
+            area.height,
+            0,
+            0,
+            area.width,
+            area.height
+          )
 
           shotsFinish(newCanvas)
         }
@@ -142,26 +150,26 @@ export default {
 }
 </script>
 <style scoped>
-    @import 'styles/normalize.css';
-    @import 'styles/common.css';
+@import "styles/normalize.css";
+@import "styles/common.css";
 
-    #app {
-        padding: 100px;
-        text-align: center;
-    }
+#app {
+  padding: 100px;
+  text-align: center;
+}
 
-    .screen-shots {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        font-size: 30px;
-        height: 50px;
-        width: 50px;
-        line-height: 46px;
-        text-align: center;
-        background-color: #3899ff80;
-        border-radius: 50%;
-        color: #3899ff;
-        z-index: 999;
-    }
+.screen-shots {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+  height: 50px;
+  width: 50px;
+  line-height: 46px;
+  text-align: center;
+  background-color: #3899ff80;
+  border-radius: 50%;
+  color: #3899ff;
+  z-index: 999;
+}
 </style>

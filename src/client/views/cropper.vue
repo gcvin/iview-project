@@ -1,15 +1,15 @@
 <template>
   <div class="cropper-wrapper">
     <div class="tip-box" v-show="cropperSrc">
-      <Upload action="" :before-upload="beforeUpload">
+      <Upload action :before-upload="beforeUpload">
         <a href="javascript:;">重新上传</a>
         <span slot="tip">【{{ cropperType }}】当前裁切尺寸：{{ width }}x{{ height }}</span>
       </Upload>
     </div>
     <div class="left-box">
-      <Upload action="" v-show="!cropperSrc" :before-upload="beforeUpload">
+      <Upload action v-show="!cropperSrc" :before-upload="beforeUpload">
         <div class="upload-box">
-          <Icon type="ios-add" />
+          <Icon type="ios-add"/>
           <p>添加图片</p>
         </div>
       </Upload>
@@ -26,14 +26,11 @@
         v-if="cropperType == 'cover'"
         href="javascript:;"
         class="image-box banner"
-        @click="initCropper('banner')">
+        @click="initCropper('banner')"
+      >
         <img :src="imgSrc" v-show="imgSrc">
       </a>
-      <a
-        v-else
-        href="javascript:;"
-        class="image-box cover"
-        @click="initCropper('cover')">
+      <a v-else href="javascript:;" class="image-box cover" @click="initCropper('cover')">
         <img :src="imgSrc" v-show="imgSrc">
       </a>
     </div>
@@ -60,7 +57,7 @@ export default {
     beforeUpload (file) {
       const reader = new FileReader()
       reader.readAsDataURL(file)
-      reader.onload = (event) => {
+      reader.onload = event => {
         this.replace(event.srcElement.result)
       }
       return false
@@ -107,7 +104,7 @@ export default {
   },
   mounted () {
     const image = document.getElementById('cropper-image')
-    image.addEventListener('crop', (event) => {
+    image.addEventListener('crop', event => {
       this.width = ~~event.detail.width
       this.height = ~~event.detail.height
     })
@@ -117,7 +114,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .background {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC")
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
 }
 
 .tip-box {
