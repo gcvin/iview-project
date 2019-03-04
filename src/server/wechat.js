@@ -1,10 +1,10 @@
 import { Wechaty, Message } from 'wechaty'
 import qrTerm from 'qrcode-terminal'
-import Tuling from 'tuling123-client'
+import Robot from 'tuling123-client'
 
 const bot = new Wechaty()
 const TULING123_API_KEY = '470f90cf381540cf81ce8a632e68be2f'
-const tuling = new Tuling(TULING123_API_KEY)
+const robot = new Robot(TULING123_API_KEY)
 
 let startChat = false
 
@@ -21,7 +21,7 @@ const onMessage = async function (message) {
 
   if (text === '你好小张') {
     startChat = true
-    await room.say('老弟，来啦？')
+    await room.say('来啦？老弟。')
     return false
   }
 
@@ -42,7 +42,7 @@ const onMessage = async function (message) {
   }
 
   try {
-    const reply = await tuling.ask(text, { userid: contact })
+    const reply = await robot.ask(text, { userid: contact })
     await room.say(reply.text)
   } catch (e) {
     console.error(e)
