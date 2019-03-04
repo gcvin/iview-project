@@ -21,10 +21,14 @@ const onMessage = async function (message) {
 
   if (text === '你好小张') {
     startChat = true
+    await room.say('老弟，来啦？')
+    return false
   }
 
   if (text === '再见小张') {
     startChat = false
+    await room.say('带上小张的祝福，滚的越远越好。')
+    return false
   }
 
   if (!startChat || self || !room || type !== Message.Type.Text) {
@@ -39,7 +43,6 @@ const onMessage = async function (message) {
 
   try {
     const reply = await tuling.ask(text, { userid: contact })
-    console.log(reply)
     await room.say(reply.text)
   } catch (e) {
     console.error(e)
