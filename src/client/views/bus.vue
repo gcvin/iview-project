@@ -1,17 +1,17 @@
 <template lang="html">
-    <div class="bus">
-        <bus-parent :class="[{ active: isActive }, bold]"></bus-parent>
-        <bus-child class="arrow"></bus-child>
-        <div class="captcha" @click="getCaptcha" @mousemove="getPositon($event)"></div>
-        <div class="double">
-            十进制加法：
-            <InputNumber v-model="addend" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber>
-            <span class="plus">+</span>
-            <InputNumber v-model="summand" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber><br>
-            二进制求和：<Input v-model="binary" size="small" style="width: 400px"></Input><br>
-            十进制结果：<span>{{ accurate }}</span>
-        </div>
+  <div class="bus">
+    <bus-parent :class="[{ active: isActive }, bold]"></bus-parent>
+    <bus-child class="arrow"></bus-child>
+    <div class="captcha" @click="getCaptcha" @mousemove="getPositon($event)"></div>
+    <div class="double">
+      十进制加法：
+      <InputNumber v-model="addend" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber>
+      <span class="plus">+</span>
+      <InputNumber v-model="summand" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber><br>
+      二进制求和：<Input v-model="binary" size="small" style="width: 400px"></Input><br>
+      十进制结果：<span>{{ accurate }}</span>
     </div>
+  </div>
 </template>
 
 <script>

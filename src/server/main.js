@@ -7,6 +7,7 @@ import session from 'koa-session'
 import serve from 'koa-static'
 
 import router from './router'
+// import './wechat'
 
 const app = new Koa()
 
