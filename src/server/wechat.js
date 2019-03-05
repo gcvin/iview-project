@@ -47,6 +47,10 @@ const onMessage = async message => {
     room.say(response.result.fulfillment.speech)
   })
 
+  request.on('error', function () {
+    room.say('我不知道你在说什么呢')
+  })
+
   request.end()
 }
 
