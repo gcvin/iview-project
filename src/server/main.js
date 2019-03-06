@@ -6,10 +6,12 @@ import koaBody from 'koa-body'
 import session from 'koa-session'
 import serve from 'koa-static'
 
+import wechat from './wechat'
 import router from './router'
-import './wechat'
 
 const app = new Koa()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
 
 app.keys = ['xiaozhang']
 
@@ -34,7 +36,16 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes())
 
-const server = app.listen(process.env.PORT || 4000, _ => {
+io.on('connection', function (socket) {
+  console.log('a user connected')
+  socket.on('disconnect', function () {
+    console.log('user disconnected')
+  })
+
+  wechat(socket)
+})
+
+const server = http.listen(process.env.PORT || 4000, _ => {
   const port = server.address().port
   console.log(`Server listening at http://localhost:${port}`)
 })

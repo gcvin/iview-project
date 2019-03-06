@@ -33,6 +33,9 @@
             <router-link to="/cropper">Cropper</router-link>
           </li>
           <li>
+            <router-link to="/wechat">Wechat</router-link>
+          </li>
+          <li>
             <router-link to="/minivue">MiniVue</router-link>
           </li>
         </ul>
