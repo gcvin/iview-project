@@ -61,6 +61,12 @@ export default {
   beforeDestroy () {
     this.socket.emit('destroy')
     this.socket.close()
+  },
+  mounted () {
+    window.onbeforeunload = () => {
+      this.socket.emit('destroy')
+      this.socket.close()
+    }
   }
 }
 </script>
