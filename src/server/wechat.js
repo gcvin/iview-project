@@ -1,11 +1,11 @@
-import apiai from 'apiai'
 import qr from 'qr-image'
+import Tuling from 'tuling123-client'
 import { Wechaty, Message } from 'wechaty'
 
 export default (socket) => {
-  const key = '7217d7bce18c4bcfbe04ba7bdfaf9c08'
+  const key = '470f90cf381540cf81ce8a632e68be2f'
 
-  const app = apiai(key)
+  const app = new Tuling(key)
   const bot = new Wechaty()
 
   const onScan = (qrcode, code) => {
@@ -29,6 +29,9 @@ export default (socket) => {
       const text = message.text()
       const self = message.self()
 
+      if (await room.topic() !== topic) {
+        return false
+      }
       if (text === '你好小张') {
         chatting = true
         room.say('来啦？老弟。')
@@ -42,17 +45,8 @@ export default (socket) => {
       if (self || !chatting || !room || type !== Message.Type.Text) {
         return false
       }
-      if (await room.topic() !== topic) {
-        return false
-      }
-      const request = app.textRequest(text, { sessionId: contact })
-      request.on('response', function (response) {
-        room.say(response.result.fulfillment.speech)
-      })
-      request.on('error', function () {
-        room.say('我不知道你在说什么呢')
-      })
-      request.end()
+      const reply = await app.ask(text, { userid: contact })
+      await room.say(reply.text)
     }
   }
 
