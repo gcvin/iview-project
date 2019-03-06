@@ -22,7 +22,10 @@ module.exports = {
 
     if (isProd()) {
       config.plugins.push(
-        new Analyzer(),
+        new Analyzer({
+          analyzerMode: false,
+          generateStatsFile: true
+        }),
         new Copy([{
           from: resolve('./src/client/public'),
           to: resolve('./src/server/public'),

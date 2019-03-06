@@ -40,6 +40,13 @@ const routers = [
       title: 'cropper'
     },
     component: (resolve) => require(['@/views/cropper.vue'], resolve)
+  },
+  {
+    path: '/wechat',
+    meta: {
+      title: 'wechat'
+    },
+    component: (resolve) => require(['@/views/wechat.vue'], resolve)
   }
 ]
 export default routers
