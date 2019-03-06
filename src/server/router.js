@@ -157,35 +157,26 @@ router.get('/ajax/qndelete', async (ctx) => {
 router.get('/ajax/images', async (ctx) => {
   const baseUrl = 'https://apod.nasa.gov/apod/'
   const urls = []
-
   let count = Number(ctx.query.pages)
-
   const getImage = async (num, offset) => {
     const pages = new Array(num).fill(undefined).map((item, index) => {
       const day = moment().subtract(index + offset, 'days').format('YYMMDD')
       return axios.get(`${baseUrl}ap${day}.html`)
     })
-
     const pageData = await Promise.all(pages)
-
     pageData.map(item => {
       const regex = item.data.match(/href="(image\/(\d+)\/([^.]+.jpg))"/)
-
       if (regex) {
         const url = regex[1]
-
         urls.push(`${baseUrl}${url}`)
         count--
       }
     })
-
     if (count) {
       await getImage(count, num + 1)
     }
   }
-
   await getImage(count, 1)
-
   ctx.body = { urls }
 })
 
