@@ -10,7 +10,7 @@ import wechat from './wechat'
 import router from './router'
 
 const app = new Koa()
-const http = require('http').Server(app)
+const http = require('http').Server(app.callback())
 const io = require('socket.io')(http)
 
 app.keys = ['xiaozhang']
@@ -20,7 +20,7 @@ app.use(views(path.join(__dirname, 'views'), { extension: 'ejs' }))
 
 app.use(logger())
 app.use(koaBody())
-app.use(serve(path.join(__dirname, 'public'), { maxage: 24 * 60 * 60 * 1000 }))
+app.use(serve(path.join(__dirname, 'public')))
 app.use(session(app))
 
 app.use(async (ctx, next) => {
@@ -37,7 +37,7 @@ app.use(async (ctx, next) => {
 app.use(router.routes())
 
 io.on('connection', function (socket) {
-  console.log('a user connected')
+  console.log('user connected')
   socket.on('disconnect', function () {
     console.log('user disconnected')
   })

@@ -12,8 +12,7 @@
         </FormItem>
         <FormItem>
           <Button v-if="!start" type="success" @click="onStart" :disabled="!topic">开始使用</Button>
-          <Button v-if="start && !stop" type="error" @click="onStop">停止使用</Button>
-          <Button v-if="stop" type="warning">已停止</Button>
+          <Button v-if="start" type="error" @click="onStop">停止使用</Button>
         </FormItem>
       </Form>
     </template>
@@ -26,39 +25,42 @@
 <script>
 import io from 'socket.io-client'
 
-const socket = io()
-socket.emit('start')
-
 export default {
   data () {
     return {
-      code: 0,
       qrcode: '',
       topic: '',
       user: null,
       start: false,
-      stop: false
+      socket: null
     }
   },
   created () {
-    socket.on('scan', (qrcode, code) => {
+    this.socket = io()
+
+    this.socket.on('scan', qrcode => {
       this.qrcode = qrcode
-      this.code = code
+      this.user = null
     })
 
-    socket.on('login', user => {
+    this.socket.on('login', user => {
       this.user = user
     })
   },
   methods: {
     onStart () {
-      socket.emit('topic', this.topic)
+      this.socket.emit('start', this.topic)
       this.start = true
     },
     onStop () {
-      socket.emit('stop')
-      this.stop = true
+      this.socket.emit('stop')
+      this.start = false
+      this.user = null
     }
+  },
+  beforeDestroy () {
+    this.socket.emit('destroy')
+    this.socket.close()
   }
 }
 </script>

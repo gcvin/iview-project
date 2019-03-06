@@ -24,7 +24,7 @@ module.exports = {
       config.plugins.push(
         new Analyzer({
           analyzerMode: false,
-          generateStatsFile: true
+          generateStatsFile: false
         }),
         new Copy([{
           from: resolve('./src/client/public'),
