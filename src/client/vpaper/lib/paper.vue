@@ -148,7 +148,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .vpaper .pages {
   position: relative;
   height: 400px;

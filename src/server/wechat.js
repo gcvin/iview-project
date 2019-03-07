@@ -9,7 +9,7 @@ export default (socket) => {
   const bot = new Wechaty()
 
   const onScan = (qrcode, code) => {
-    const buffer = qr.imageSync(qrcode, { type: 'png' })
+    const buffer = qr.imageSync(qrcode, { type: 'png', size: 10 })
     const data = buffer.toString('base64')
     const image = 'data:image/png;base64,' + data
     socket.emit('scan', image, code)
@@ -19,34 +19,60 @@ export default (socket) => {
     socket.emit('login', user)
   }
 
-  const onMessage = (topic) => {
+  const onMessage = (params) => {
     let chatting = false
 
     return async message => {
+      const to = message.to()
       const room = message.room()
-      const contact = message.from()
+      const from = message.from()
       const type = message.type()
       const text = message.text()
       const self = message.self()
+      const prefix = params.self ? `(${params.name})` : ''
+      const robot = self && text.startsWith(prefix)
+      let tosay = null
 
-      if (await room.topic() !== topic) {
+      if (params.type === 'room') {
+        if (!room) {
+          return false
+        }
+        if (await room.topic() === params.topic) {
+          tosay = room
+        }
+      }
+      if (params.type === 'friend') {
+        const fromName = from.name()
+        const toName = to && to.name()
+
+        if (room) {
+          return false
+        }
+        if (fromName === params.friend) {
+          tosay = from
+        }
+        if (self && toName === params.friend) {
+          tosay = to
+        }
+      }
+      if (!tosay) {
         return false
       }
-      if (text === '你好小张') {
+      if (text === params.open) {
         chatting = true
-        room.say('来啦？老弟。')
+        tosay.say(prefix + params.hello)
         return false
       }
-      if (text === '再见小张') {
+      if (text === params.close) {
         chatting = false
-        room.say('带上小张的祝福，滚的越远越好。')
+        tosay.say(prefix + params.bye)
         return false
       }
-      if (self || !chatting || !room || type !== Message.Type.Text) {
+      if (robot || !chatting || type !== Message.Type.Text) {
         return false
       }
-      const reply = await app.ask(text, { userid: contact })
-      await room.say(reply.text)
+      const reply = await app.ask(text, { userid: from })
+      await tosay.say(prefix + reply.text)
     }
   }
 

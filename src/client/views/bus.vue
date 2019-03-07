@@ -147,7 +147,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .bus {
   width: 500px;
   margin: 0 auto;

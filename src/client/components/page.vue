@@ -76,26 +76,13 @@ export default {
   }
 }
 </script>
-<style lang="css">
+<style lang="css" scoped>
 .page {
   text-align: center;
 }
 .margin {
   margin: 0 4px;
 }
-/*.prev:after, .next:after {
-        content: "\2022\2022\2022";
-        display: block;
-        letter-spacing: 1px;
-        color: #ccc;
-        text-align: center;
-    }
-    .next:hover:after, .next i, .prev:hover:after, .prev i {
-        display: none;
-    }*/
-/*.next:hover i, .prev:hover i {
-        display: inline;
-    }*/
 .prev i:after {
   content: "\F3D2";
 }
