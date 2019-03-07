@@ -196,7 +196,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .mongo {
   width: 800px;
   margin: 0 auto;
