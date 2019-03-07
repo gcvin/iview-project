@@ -149,12 +149,12 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style lang="less" scoped>
 @import "styles/normalize.css";
 @import "styles/common.css";
 
 #app {
-  padding: 100px;
+  padding-top: 100px;
   text-align: center;
 }
 

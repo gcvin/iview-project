@@ -121,7 +121,7 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .upload {
   width: 600px;
   margin: 0 auto;
