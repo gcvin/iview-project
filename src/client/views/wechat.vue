@@ -10,27 +10,33 @@
             <Icon type="md-ionitron" slot="prefix" />
           </Input>
         </FormItem>
-        <FormItem label="开启命令">
+        <FormItem label="命令开启">
+          <RadioGroup v-model="form.cmd" :disabled="start">
+            <Radio :label="true">是</Radio>
+            <Radio :label="false">否</Radio>
+          </RadioGroup>
+        </FormItem>
+        <FormItem label="开启命令" v-if="form.cmd">
           <Input :placeholder="defaultOpen" :disabled="start" v-model="form.open">
             <Icon type="md-heart" slot="prefix" />
           </Input>
         </FormItem>
-        <FormItem label="关闭命令">
+        <FormItem label="关闭命令" v-if="form.cmd">
           <Input :placeholder="defaultClose" :disabled="start" v-model="form.close">
             <Icon type="md-heart-outline" slot="prefix" />
           </Input>
         </FormItem>
-        <FormItem label="欢迎语句">
+        <FormItem label="欢迎语句" v-if="form.cmd">
           <Input placeholder="hello" :disabled="start" v-model="form.hello">
             <Icon type="md-log-in" slot="prefix" />
           </Input>
         </FormItem>
-        <FormItem label="结束语句">
+        <FormItem label="结束语句" v-if="form.cmd">
           <Input placeholder="bye" :disabled="start" v-model="form.bye">
             <Icon type="md-log-out" slot="prefix" />
           </Input>
         </FormItem>
-        <FormItem label="与自己聊天" prop="self">
+        <FormItem label="与自己聊天">
           <RadioGroup v-model="form.self" :disabled="start">
             <Radio :label="true">是</Radio>
             <Radio :label="false">否</Radio>
@@ -79,17 +85,15 @@ export default {
         type: '',
         hello: '',
         bye: '',
-        self: ''
+        self: false,
+        cmd: true
       },
       rule: {
         name: [
           { required: true, message: 'AI昵称不能为空', trigger: 'blur' }
         ],
-        self: [
-          { required: true, message: '请选择是否可以与自己聊天', trigger: 'blur' }
-        ],
         type: [
-          { required: true, message: '请选择聊天对象', trigger: 'blur' }
+          { required: true, message: '请选择聊天对象', trigger: 'change' }
         ],
         topic: [
           { required: true, message: '群聊名称不能为空', trigger: 'blur' }

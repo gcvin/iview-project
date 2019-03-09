@@ -40,7 +40,7 @@ const routers = [
       title: 'cropper'
     },
     component: (resolve) => require(['@/views/cropper.vue'], resolve)
-  },
+  },
   {
     path: '/wechat',
     meta: {

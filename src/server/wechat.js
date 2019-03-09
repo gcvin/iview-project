@@ -20,7 +20,7 @@ export default (socket) => {
   }
 
   const onMessage = (params) => {
-    let chatting = false
+    let chatting = !params.cmd
 
     return async message => {
       const to = message.to()
@@ -58,12 +58,12 @@ export default (socket) => {
       if (!tosay) {
         return false
       }
-      if (text === params.open) {
+      if (params.cmd && text === params.open) {
         chatting = true
         tosay.say(prefix + params.hello)
         return false
       }
-      if (text === params.close) {
+      if (params.cmd && text === params.close) {
         chatting = false
         tosay.say(prefix + params.bye)
         return false
