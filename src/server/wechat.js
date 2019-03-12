@@ -48,7 +48,7 @@ export default (socket) => {
         if (room) {
           return false
         }
-        if (fromName === params.friend) {
+        if (!self && fromName === params.friend) {
           tosay = from
         }
         if (self && toName === params.friend) {
