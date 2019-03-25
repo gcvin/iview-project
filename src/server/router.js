@@ -3,7 +3,7 @@ import svgCaptcha from 'svg-captcha'
 import qn from 'qn'
 import fs from 'fs'
 import axios from 'axios'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import User from './schema/user.js'
 import upload from './lib/upload'
 import config from './config'
@@ -160,7 +160,7 @@ router.get('/ajax/images', async (ctx) => {
   let count = Number(ctx.query.pages)
   const getImage = async (num, offset) => {
     const pages = new Array(num).fill(undefined).map((item, index) => {
-      const day = moment().subtract(index + offset, 'days').format('YYMMDD')
+      const day = dayjs().subtract(index + offset, 'days').format('YYMMDD')
       return axios.get(`${baseUrl}ap${day}.html`)
     })
     const pageData = await Promise.all(pages)
