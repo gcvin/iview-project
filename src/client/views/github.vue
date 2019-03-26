@@ -14,7 +14,7 @@
 
 <script>
 import pdfMake from 'pdfMake'
-import moment from 'moment'
+import dayjs from 'dayjs'
 
 export default {
   data: function () {
@@ -70,7 +70,7 @@ export default {
           render: (h, params) => {
             return h(
               'span',
-              moment(params.row.commit.author.date).format(
+              dayjs(params.row.commit.author.date).format(
                 'YYYY-MM-DD HH:mm:ss'
               )
             )
@@ -109,7 +109,7 @@ export default {
         tmp.push(commit.commit.author.name)
         tmp.push(commit.commit.author.email)
         tmp.push(
-          moment(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss')
+          dayjs(commit.commit.author.date).format('YYYY-MM-DD HH:mm:ss')
         )
         return tmp
       })
