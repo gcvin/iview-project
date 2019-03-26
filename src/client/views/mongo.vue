@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import dayjs from 'dayjs'
 import Page from '@/components/page'
 import util from '@/libs/util'
 
@@ -53,7 +53,7 @@ export default {
           render: (h, params) =>
             h(
               'span',
-              moment(params.row.loginDate).format('YYYY-MM-DD HH:mm:ss')
+              dayjs(params.row.loginDate).format('YYYY-MM-DD HH:mm:ss')
             )
         },
         {

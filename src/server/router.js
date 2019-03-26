@@ -43,10 +43,7 @@ router.get('/user/get-user', async (ctx) => {
   const users = await User.find(null, null, { skip: (page - 1) * 10, limit: 10 })
   const total = await User.countDocuments()
 
-  ctx.body = {
-    users,
-    total
-  }
+  ctx.body = { users, total }
 })
 
 router.post('/user/remove-user', async (ctx) => {
@@ -94,14 +91,12 @@ router.post('/ajax/ver-captcha', async (ctx) => {
 
 router.post('/ajax/qnupload', upload.single('image'), async (ctx) => {
   const result = await new Promise(resolve => {
-    client.upload(ctx.req.file.buffer, {
-      key: '/upload/' + new Date().getTime()
-    }, (err, result) => {
+    const key = '/upload/' + new Date().getTime()
+    client.upload(ctx.req.file.buffer, { key }, (err, result) => {
       if (err) {
-        ctx.throw(500, err.message)
-      } else {
-        resolve(result)
+        return ctx.throw(500, err.message)
       }
+      resolve(result)
     })
   })
 
@@ -141,10 +136,9 @@ router.get('/ajax/qndelete', async (ctx) => {
   await new Promise(resolve => {
     client.delete(ctx.query.key, (err) => {
       if (err) {
-        ctx.throw(500, err.message)
-      } else {
-        resolve()
+        return ctx.throw(500, err.message)
       }
+      resolve()
     })
   })
 
