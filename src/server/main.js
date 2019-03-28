@@ -39,7 +39,7 @@ io.on('connection', function (socket) {
   wechat(socket)
 })
 
-const server = http.listen(process.env.PORT || 4000, '127.0.0.1', _ => {
+const server = http.listen(process.env.PORT || 4000, '0.0.0.0', _ => {
   const port = server.address().port
   console.log(`Server listening at http://localhost:${port}`)
 })
