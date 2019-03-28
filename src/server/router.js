@@ -1,12 +1,12 @@
-import path from 'path'
-import svgCaptcha from 'svg-captcha'
-import qn from 'qn'
-import fs from 'fs'
-import axios from 'axios'
-import dayjs from 'dayjs'
-import User from './schema/user.js'
-import upload from './lib/upload'
-import config from './config'
+const path = require('path')
+const svgCaptcha = require('svg-captcha')
+const qn = require('qn')
+const fs = require('fs')
+const axios = require('axios')
+const dayjs = require('dayjs')
+const User = require('./schema/user.js')
+const upload = require('./lib/upload')
+const config = require('./config')
 
 const router = require('koa-router')()
 
@@ -20,7 +20,6 @@ const renderHtml = (ctx, fname) => {
   ctx.body = fs.createReadStream(fpath)
 }
 
-// 七牛相关配置信息
 const client = qn.create(config.QINIU)
 
 router.get('/minivue', async (ctx) => {
@@ -191,4 +190,4 @@ router.get('*', async (ctx) => {
   renderHtml(ctx, 'index')
 })
 
-export default router
+module.exports = router

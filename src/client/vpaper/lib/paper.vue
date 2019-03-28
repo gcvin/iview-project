@@ -17,14 +17,16 @@
           <img :src="urls[3]" height="100%" width="100%" alt="4">
         </div>
       </li>
-      <li v-for="n in pages" v-if="n > 2" :key="n" class="paper" :style="{animationDuration: `${duration / 1000}s`}">
-        <div class="page">
-          <img :src="urls[2*n-2]" height="100%" width="100%" :alt="2*n-1">
-        </div>
-        <div class="page">
-          <img :src="urls[2*n-1]" height="100%" width="100%" :alt="2*n">
-        </div>
-      </li>
+      <template v-for="n in pages">
+        <li v-if="n > 2" :key="n" class="paper" :style="{animationDuration: `${duration / 1000}s`}">
+          <div class="page">
+            <img :src="urls[2*n-2]" height="100%" width="100%" :alt="2*n-1">
+          </div>
+          <div class="page">
+            <img :src="urls[2*n-1]" height="100%" width="100%" :alt="2*n">
+          </div>
+        </li>
+      </template>
     </ul>
     <Button type="primary" @click="goToPrevPage" :disabled="isPreving">上一页</Button>
     <Button type="primary" @click="goToNextPage" :disabled="isNexting">下一页</Button>
@@ -149,6 +151,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.vpaper {
+  height: 462px;
+  overflow: hidden;
+}
+
 .vpaper .pages {
   position: relative;
   height: 400px;
@@ -263,5 +270,6 @@ export default {
 .vpaper .ivu-btn {
   margin-top: 10px;
   margin-bottom: 10px;
+  height: 32px;
 }
 </style>

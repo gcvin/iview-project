@@ -11,6 +11,7 @@ const proxy = 'https://gcvin.cn'
 
 module.exports = {
   lintOnSave: false,
+  productionSourceMap: false,
   devServer: {
     proxy: proxy
   },
@@ -18,13 +19,18 @@ module.exports = {
   configureWebpack: config => {
     config.entry.app = './src/client/main'
     config.resolve.alias['@'] = resolve('./src/client')
-    config.externals = { pdfMake: 'pdfMake' }
+    config.externals = {
+      'vue': 'Vue',
+      'iview': 'iview',
+      'vue-router': 'VueRouter',
+      'pdfMake': 'pdfMake',
+      'html2canvas': 'html2canvas'
+    }
 
     if (isProd()) {
       config.plugins.push(
         new Analyzer({
-          analyzerMode: false,
-          generateStatsFile: false
+          // analyzerMode: 'disabled'
         }),
         new Copy([{
           from: resolve('./src/client/public'),
@@ -33,6 +39,7 @@ module.exports = {
         }])
         // new PrerenderSpaPlugin({
         //   staticDir: resolve('./src/server/public'),
+        //   outputDir: resolve('./src/server/views'),
         //   indexPath: resolve('./src/server/views/index.html'),
         //   routes: ['/'],
         //   server: {

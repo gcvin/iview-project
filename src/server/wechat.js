@@ -1,15 +1,15 @@
-import qr from 'qr-image'
-import Tuling from 'tuling123-client'
-import { Wechaty, Message } from 'wechaty'
+const qrImage = require('qr-image')
+const Tuling = require('tuling123-client')
+const { Wechaty, Message } = require('wechaty')
 
-export default (socket) => {
+module.exports = (socket) => {
   const key = '470f90cf381540cf81ce8a632e68be2f'
 
   const app = new Tuling(key)
   const bot = new Wechaty()
 
   const onScan = (qrcode, code) => {
-    const buffer = qr.imageSync(qrcode, { type: 'png', size: 10 })
+    const buffer = qrImage.imageSync(qrcode, { type: 'png', size: 10 })
     const data = buffer.toString('base64')
     const image = 'data:image/png;base64,' + data
     socket.emit('scan', image, code)

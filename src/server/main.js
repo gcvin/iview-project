@@ -1,13 +1,13 @@
-import path from 'path'
-import Koa from 'koa'
-import views from 'koa-views'
-import logger from 'koa-logger'
-import koaBody from 'koa-body'
-import session from 'koa-session'
-import serve from 'koa-static'
+const path = require('path')
+const Koa = require('koa')
+const views = require('koa-views')
+const logger = require('koa-logger')
+const koaBody = require('koa-body')
+const session = require('koa-session')
+const serve = require('koa-static')
 
-import wechat from './wechat'
-import router from './router'
+const wechat = require('./wechat')
+const router = require('./router')
 
 const app = new Koa()
 const http = require('http').Server(app.callback())
@@ -15,7 +15,6 @@ const io = require('socket.io')(http)
 
 app.keys = ['xiaozhang']
 
-// view engine setup
 app.use(views(path.join(__dirname, 'views'), { extension: 'ejs' }))
 
 app.use(logger())
@@ -37,11 +36,6 @@ app.use(async (ctx, next) => {
 app.use(router.routes())
 
 io.on('connection', function (socket) {
-  console.log('user connected')
-  socket.on('disconnect', function () {
-    console.log('user disconnected')
-  })
-
   wechat(socket)
 })
 
@@ -50,4 +44,4 @@ const server = http.listen(process.env.PORT || 4000, '127.0.0.1', _ => {
   console.log(`Server listening at http://localhost:${port}`)
 })
 
-export default app
+module.exports = app
