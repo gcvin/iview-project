@@ -1,6 +1,6 @@
 {
   "name": "vpaper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "基于vue的paper翻页动画",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gcvin/iview-project/tree/koa/src/client/libs/vpaper"
+    "url": "https://github.com/gcvin/iview-project/tree/master/src/client/vpaper"
   },
   "keywords": [
     "vue",

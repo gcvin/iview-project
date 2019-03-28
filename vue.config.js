@@ -30,7 +30,7 @@ module.exports = {
     if (isProd()) {
       config.plugins.push(
         new Analyzer({
-          // analyzerMode: 'disabled'
+          analyzerMode: 'disabled'
         }),
         new Copy([{
           from: resolve('./src/client/public'),
