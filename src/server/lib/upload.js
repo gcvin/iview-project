@@ -1,5 +1,5 @@
-import bytes from 'bytes'
-import multer from 'koa-multer'
+const bytes = require('bytes')
+const multer = require('koa-multer')
 
 const storage = multer.memoryStorage()
 const upload = multer({
@@ -13,4 +13,4 @@ const upload = multer({
   }
 })
 
-export default upload
+module.exports = upload

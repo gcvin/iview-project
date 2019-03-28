@@ -15,7 +15,6 @@
 </template>
 
 <script>
-/* eslint no-undef: "off" */
 import busChild from '@/components/bus-child'
 import busParent from '@/components/bus-parent'
 

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   DB: {
     url: 'mongodb://localhost:27017/mongo'
   },

@@ -36,7 +36,7 @@
             <router-link to="/wechat">Wechat</router-link>
           </li>
           <li>
-            <router-link to="/minivue">MiniVue</router-link>
+            <a href="/minivue">MiniVue</a>
           </li>
         </ul>
       </Col>

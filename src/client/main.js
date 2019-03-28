@@ -5,25 +5,18 @@ import axios from 'axios'
 import Routers from '@/router'
 import Util from '@/libs/util'
 import App from '@/app.vue'
-import './registerServiceWorker'
-import 'iview/dist/styles/iview.css'
+import '@/libs/register'
 
-// 打开vue-devtools调试工具
-Vue.config.devtools = true
-
-// 接口数据请求配置
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
 Vue.use(iView)
 
-// 路由配置
 const RouterConfig = {
   mode: 'history',
   routes: Routers
 }
 const router = new VueRouter(RouterConfig)
 
-// 路由钩子函数
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
   Util.title(to.meta.title)
@@ -35,6 +28,7 @@ router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 })
 
+/* eslint-disable no-new */
 new Vue({
   el: '#app',
   router: router,

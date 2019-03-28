@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
-import bluebird from 'bluebird'
+const mongoose = require('mongoose')
+const bluebird = require('bluebird')
 
-// import config from '../config'
+// const config = require('../config')
 
 mongoose.Promise = bluebird
 
@@ -22,4 +22,4 @@ mongoose.connection.on('disconnected', _ => {
   console.log('Mongoose connection disconnected')
 })
 
-export default mongoose
+module.exports = mongoose

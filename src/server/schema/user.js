@@ -1,4 +1,4 @@
-import mongoose from '../lib/db.js'
+const mongoose = require('../lib/db.js')
 
 const UserSchema = new mongoose.Schema({
   userName: { type: String },
@@ -7,4 +7,4 @@ const UserSchema = new mongoose.Schema({
   loginDate: { type: Date }
 })
 
-export default mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)
