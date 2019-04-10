@@ -1,14 +1,16 @@
 <template lang="html">
   <div class="github">
-    <Radio-group v-model="currentBranch" @on-change="getCommits">
-      <Radio v-for="branch in branches" :label="branch.name" :key="branch.name"></Radio>
-    </Radio-group>
-    <Input-number :max="20" :min="1" v-model="size" size="small" @on-change="getCommits"></Input-number>
-    <Button type="primary" size="small" @click="handleCreatePdf">生成PDF</Button>
-    <Button type="primary" size="small" @click="handleVerCode" :disabled="!!second">{{ btnText }}</Button>
+    <Row>
+      <Radio-group v-model="currentBranch" @on-change="getCommits">
+        <Radio v-for="branch in branches" :label="branch.name" :key="branch.name"></Radio>
+      </Radio-group>
+      <Input-number :max="20" :min="1" v-model="size" size="small" @on-change="getCommits"></Input-number>
+      <Button type="primary" size="small" @click="handleCreatePdf">生成PDF</Button>
+      <Button type="primary" size="small" @click="handleVerCode" :disabled="!!second">{{ btnText }}</Button>
+    </Row>
     <br>
     <br>
-    <Table :columns="columns" :data="commits"></Table>
+    <Table :columns="columns" :data="commits" style="width: 800px"></Table>
   </div>
 </template>
 
@@ -148,7 +150,10 @@ export default {
 
 <style lang="css" scoped>
 .github {
-  width: 800px;
-  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 </style>

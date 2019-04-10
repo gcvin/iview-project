@@ -148,8 +148,11 @@ export default {
 
 <style lang="less" scoped>
 .bus {
-  width: 500px;
-  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .active {
   color: #42b983;

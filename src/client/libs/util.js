@@ -1,7 +1,6 @@
 export default {
   title (title) {
-    title = title ? title + ' - Home' : 'iView project'
-    window.document.title = title
+    window.document.title = title + ' - Page'
   },
   getQueryString (name) {
     let reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')

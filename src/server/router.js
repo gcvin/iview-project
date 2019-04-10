@@ -5,6 +5,7 @@ const fs = require('fs')
 const axios = require('axios')
 const dayjs = require('dayjs')
 const User = require('./schema/user.js')
+const Goods = require('./schema/goods.js')
 const upload = require('./lib/upload')
 const config = require('./config')
 
@@ -27,7 +28,7 @@ router.get('/minivue', async (ctx) => {
 })
 
 router.get('/ajax/get-slogan', async (ctx) => {
-  ctx.body = { slogan: 'Welcome to your iView app!' }
+  ctx.body = { slogan: 'Welcome to gcvin.cn!' }
 })
 
 router.get('/ajax/get-vercode', async (ctx) => {
@@ -63,6 +64,27 @@ router.post('/user/add-user', async (ctx) => {
   await user.save()
 
   ctx.body = success
+})
+
+router.get('/goods/get-goods', async (ctx) => {
+  const { page, score, count, sort, category } = ctx.query
+  const filter = {
+    score: { $gte: score },
+    count: { $gte: count },
+    category: new RegExp(category === 'all' ? '.*' : category)
+  }
+  const goods = await Goods.find(filter, null, {
+    skip: (page - 1) * 12,
+    limit: 12,
+    sort: {
+      [sort]: -1,
+      score: -1,
+      count: -1
+    }
+  })
+  const total = await Goods.countDocuments(filter)
+
+  ctx.body = { goods, total }
 })
 
 router.get('/ajax/get-captcha', async (ctx) => {

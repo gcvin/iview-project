@@ -1,5 +1,5 @@
 <template lang="html">
-  <Input v-model="value" @on-change="changeValue" placeholder="请输入..."></Input>
+  <Input v-model="value" @on-change="changeValue" placeholder="请输入..." style="width: 200px"></Input>
 </template>
 
 <script>

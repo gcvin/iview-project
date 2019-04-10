@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <nav-bar></nav-bar>
     <router-view></router-view>
     <a class="screen-shots" href="javascript:;" @click="handleShots">
       <Icon type="md-camera"/>
@@ -8,6 +9,7 @@
 </template>
 <script>
 import html2canvas from 'html2canvas'
+import navBar from '@/components/nav-bar'
 
 export default {
   data () {
@@ -15,8 +17,7 @@ export default {
       isbusy: false
     }
   },
-  mounted () {},
-  beforeDestroy () {},
+  components: { navBar },
   methods: {
     handleShots () {
       const vm = this
@@ -154,8 +155,10 @@ export default {
 @import "styles/common.css";
 
 #app {
-  padding-top: 100px;
+  height: 100%;
   text-align: center;
+  margin-top: -48px;
+  padding-top: 48px;
 }
 
 .screen-shots {

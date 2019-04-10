@@ -3,7 +3,7 @@
     <Button type="primary" @click="handleAdd">添加用户</Button>
     <br />
     <br />
-    <Table :columns="columns" :data="users"></Table>
+    <Table :columns="columns" :data="users" style="width: 800px"></Table>
     <Page url="?page=#num#" :current="page" :size="10" :total="total" :number="5"></Page>
     <Modal
       v-model="showModal"
@@ -198,8 +198,11 @@ export default {
 
 <style lang="css" scoped>
 .mongo {
-  width: 800px;
-  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .page {
   margin-top: 20px;

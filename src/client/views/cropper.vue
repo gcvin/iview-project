@@ -1,11 +1,5 @@
 <template>
-  <div class="cropper-wrapper">
-    <div class="tip-box" v-show="cropperSrc">
-      <Upload action :before-upload="beforeUpload">
-        <a href="javascript:;">重新上传</a>
-        <span slot="tip">【{{ cropperType }}】当前裁切尺寸：{{ width }}x{{ height }}</span>
-      </Upload>
-    </div>
+  <div class="cropper">
     <div class="left-box">
       <Upload action v-show="!cropperSrc" :before-upload="beforeUpload">
         <div class="upload-box">
@@ -48,9 +42,7 @@ export default {
       cropper: null,
       cropperSrc: '',
       cropperType: '',
-      imgSrc: '',
-      height: '',
-      width: ''
+      imgSrc: ''
     }
   },
   methods: {
@@ -103,30 +95,25 @@ export default {
     }
   },
   mounted () {
-    const image = document.getElementById('cropper-image')
-    image.addEventListener('crop', event => {
-      this.width = ~~event.detail.width
-      this.height = ~~event.detail.height
-    })
     this.initCropper('banner')
   }
 }
 </script>
 <style lang="less" scoped>
+.cropper {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .background {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC");
 }
 
-.tip-box {
-  font-size: 14px;
-}
-
 .left-box {
   position: relative;
-  display: inline-block;
   width: 560px;
   height: 224px;
-  border: 1px solid #ebebeb;
 
   .background;
 
@@ -150,16 +137,16 @@ export default {
 }
 
 .right-box {
-  display: inline-block;
-  vertical-align: top;
   margin-left: 20px;
   position: relative;
 
   .preview-box {
     height: 96px !important;
-    border: 1px solid #ebebeb;
     overflow: hidden;
-    margin-bottom: 32px;
+
+    &:not(:last-of-type) {
+      margin-bottom: 32px;
+    }
 
     a {
       display: block;
@@ -180,7 +167,6 @@ export default {
 
   .image-box {
     position: absolute;
-    border: 1px solid #ebebeb;
     height: 96px;
     left: 0;
 
