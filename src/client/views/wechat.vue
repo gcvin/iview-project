@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import io from 'socket.io-client'
+// import io from 'socket.io-client'
 
 export default {
   data () {
@@ -116,17 +116,17 @@ export default {
     }
   },
   created () {
-    this.socket = io()
+    // this.socket = io()
 
-    this.socket.on('scan', qrcode => {
-      this.qrcode = qrcode
-      this.start = false
-      this.user = null
-    })
+    // this.socket.on('scan', qrcode => {
+    //   this.qrcode = qrcode
+    //   this.start = false
+    //   this.user = null
+    // })
 
-    this.socket.on('login', user => {
-      this.user = user
-    })
+    // this.socket.on('login', user => {
+    //   this.user = user
+    // })
   },
   methods: {
     onStart () {
@@ -177,8 +177,9 @@ export default {
 
 <style lang="less" scoped>
 .wechat {
-  width: 300px;
-  margin: 0 auto;
-  text-align: center;
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

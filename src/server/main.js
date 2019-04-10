@@ -6,12 +6,12 @@ const koaBody = require('koa-body')
 const session = require('koa-session')
 const serve = require('koa-static')
 
-const wechat = require('./wechat')
+// const wechat = require('./wechat')
 const router = require('./router')
 
 const app = new Koa()
 const http = require('http').Server(app.callback())
-const io = require('socket.io')(http)
+// const io = require('socket.io')(http)
 
 app.keys = ['xiaozhang']
 
@@ -35,11 +35,11 @@ app.use(async (ctx, next) => {
 
 app.use(router.routes())
 
-io.on('connection', function (socket) {
-  wechat(socket)
-})
+// io.on('connection', function (socket) {
+//   wechat(socket)
+// })
 
-const server = http.listen(process.env.PORT || 4000, '0.0.0.0', _ => {
+const server = http.listen(process.env.PORT || 4000, _ => {
   const port = server.address().port
   console.log(`Server listening at http://localhost:${port}`)
 })

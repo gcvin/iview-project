@@ -24,7 +24,8 @@ module.exports = {
       'iview': 'iview',
       'vue-router': 'VueRouter',
       'pdfMake': 'pdfMake',
-      'html2canvas': 'html2canvas'
+      'html2canvas': 'html2canvas',
+      'griffith': 'Griffith'
     }
 
     if (isProd()) {
@@ -58,5 +59,16 @@ module.exports = {
         template: resolve('./src/client/public/index.html'),
         filename: isProd() ? resolve('./src/server/views/index.html') : 'index.html'
       })])
+  },
+  pwa: {
+    themeColor: '#5bbad5',
+    msTileColor: '#00aba9',
+    iconPaths: {
+      favicon32: 'img/icons/favicon-32x32.png',
+      favicon16: 'img/icons/favicon-16x16.png',
+      appleTouchIcon: 'img/icons/apple-touch-icon-152x152.png',
+      maskIcon: 'img/icons/safari-pinned-tab.svg',
+      msTileImage: 'img/icons/mstile-144x144.png'
+    }
   }
 }

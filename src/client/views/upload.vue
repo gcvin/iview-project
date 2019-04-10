@@ -34,7 +34,7 @@
     <Modal title="查看图片" v-model="visible">
       <img :src="imgUrl" v-if="visible" style="width: 100%">
     </Modal>
-    <vpaper/>
+    <vpaper style="width: 600px"/>
   </div>
 </template>
 
@@ -123,8 +123,11 @@ export default {
 
 <style lang="css" scoped>
 .upload {
-  width: 600px;
-  margin: 0 auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .upload-list {
   display: inline-block;
