@@ -5,13 +5,13 @@
     </h1>
     <h2>
       <p style="margin-bottom: 50px">{{ slogan }}</p>
-      <Button type="primary" ghost @click="handleStart" class="tilt">Start iView</Button>
+      <Button type="primary" @click="handleStart" class="tilt">Start iView</Button>
       <br>
       <br>
       <icon-svg icon-class="youxiang"/>
-      <Button type="primary" ghost @click="handleRecursion">递归</Button>
-      <Button type="primary" ghost @click="handlePromise">Promise</Button>
-      <Button type="primary" ghost @click="handleAwait">Async/Await</Button>
+      <Button type="info" @click="handleRecursion">递归</Button>
+      <Button type="success" @click="handlePromise">Promise</Button>
+      <Button type="warning" @click="handleAwait">Async/Await</Button>
       <icon-svg icon-class="anquan"/>
     </h2>
   </div>
@@ -109,11 +109,7 @@ export default {
 }
 </script>
 <style scoped lang="less">
-.index {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.ivu-btn {
+  margin: 0 4px;
 }
 </style>

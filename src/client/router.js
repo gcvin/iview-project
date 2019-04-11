@@ -35,13 +35,6 @@ const routers = [
     component: (resolve) => require(['@/views/upload.vue'], resolve)
   },
   {
-    path: '/cropper',
-    meta: {
-      title: 'Cropper'
-    },
-    component: (resolve) => require(['@/views/cropper.vue'], resolve)
-  },
-  {
     path: '/wechat',
     meta: {
       title: 'Wechat'

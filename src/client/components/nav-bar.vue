@@ -15,9 +15,9 @@
     <li>
       <router-link to="/upload">Upload</router-link>
     </li>
-    <li>
+    <!-- <li>
       <router-link to="/cropper">Cropper</router-link>
-    </li>
+    </li> -->
     <!-- <li>
       <router-link to="/wechat">Wechat</router-link>
     </li> -->
@@ -35,6 +35,7 @@ export default {
 
 <style lang="less" scoped>
 .nav-bar {
+  height: 48px;
   width: 100%;
   font-size: 14px;
   line-height: 2;

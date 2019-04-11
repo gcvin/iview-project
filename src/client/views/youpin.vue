@@ -1,12 +1,12 @@
 <template lang="html">
   <div class="youpin">
     <div class="filter">
+      <span>销量不低于：<InputNumber v-model="count" @on-change="getGoods" :min="0" size="small"/>&nbsp;</span>
+      <span>好评不低于：<InputNumber v-model="score" @on-change="getGoods" :min="0" size="small"/>&nbsp;</span>
       <RadioGroup v-model="sort" @on-change="getGoods">
           <Radio label="count">销量优先</Radio>
           <Radio label="score">好评优先</Radio>
       </RadioGroup>
-      <span>销量不低于：<InputNumber v-model="count" @on-change="getGoods" :min="0" size="small"/>&nbsp;</span>
-      <span>好评不低于：<InputNumber v-model="score" @on-change="getGoods" :min="0" size="small"/>&nbsp;</span>
       <Select v-model="category" placeholder="请选择类目" style="width:120px" size="small" @on-change="getGoods">
         <Option value="all">全部类目</Option>
         <Option v-for="item in categories" :key="item" :value="item">{{ item }}</Option>
@@ -22,7 +22,7 @@
         <p>￥{{ good.price }}</p>
       </a>
     </div>
-    <Page :total="total" @on-change="getGoods" :current.sync="page" :page-size="12"/>
+    <Page :total="total" @on-change="getGoods" :current.sync="page" :page-size="12" size="small"/>
   </div>
 </template>
 
@@ -78,24 +78,22 @@ export default {
 
 <style lang="less" scoped>
 .youpin {
-  min-height: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
   background: url(../images/bg-right.png) center right no-repeat #F2F2F2;
 
   .filter {
-    height: 50px;
-    line-height: 50px;
+    padding: 10px 0;
+    line-height: 24px;
   }
 
   .goods {
     width: 1080px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow: auto;
   }
 
   .ivu-page {
-    margin-top: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
   }
 
   .good {
@@ -126,7 +124,8 @@ export default {
       overflow: hidden;
 
       img {
-        width: 195px;
+        max-width: 195px;
+        width: 100%;
         height: auto;
       }
     }
@@ -135,6 +134,20 @@ export default {
       overflow:hidden;
       text-overflow:ellipsis;
       white-space:nowrap
+    }
+  }
+
+  @media screen and (max-width: 1080px) {
+    .goods {
+      width: 100%;
+    }
+
+    .good {
+      width: calc(50% - 3px);
+
+      &:nth-of-type(2n+1) {
+        margin-left: 0;
+      }
     }
   }
 }

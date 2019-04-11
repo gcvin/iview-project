@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
-    <router-view></router-view>
+    <router-view class="page"></router-view>
     <a class="screen-shots" href="javascript:;" @click="handleShots">
       <Icon type="md-camera"/>
     </a>
@@ -157,8 +157,6 @@ export default {
 #app {
   height: 100%;
   text-align: center;
-  margin-top: -48px;
-  padding-top: 48px;
 }
 
 .screen-shots {
@@ -174,5 +172,10 @@ export default {
   border-radius: 50%;
   color: #3899ff;
   z-index: 999;
+}
+
+.page {
+  display: flow-root;
+  min-height: calc(100% - 48px);
 }
 </style>
