@@ -81,7 +81,7 @@ export default {
   background: url(../images/bg-right.png) center right no-repeat #F2F2F2;
 
   .filter {
-    padding: 10px 0;
+    margin-bottom: 10px;
     line-height: 24px;
   }
 
@@ -92,8 +92,7 @@ export default {
   }
 
   .ivu-page {
-    margin-top: 15px;
-    margin-bottom: 20px;
+    margin-top: 5px;
   }
 
   .good {

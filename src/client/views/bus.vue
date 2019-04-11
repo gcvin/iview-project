@@ -149,12 +149,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.bus {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 .active {
   color: #42b983;
 }

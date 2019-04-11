@@ -176,9 +176,4 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.wechat {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 </style>

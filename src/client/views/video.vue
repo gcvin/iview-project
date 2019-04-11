@@ -35,14 +35,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.video {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .player {
-    height: 500px;
-    width: 800px;
-  }
+.player {
+  height: 500px;
+  width: 800px;
 }
 </style>
