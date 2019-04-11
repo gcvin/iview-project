@@ -7,6 +7,7 @@ import Util from '@/libs/util'
 import App from '@/app.vue'
 import '@/libs/register'
 
+Vue.config.devtools = true
 Vue.prototype.$http = axios
 Vue.use(VueRouter)
 Vue.use(iView)

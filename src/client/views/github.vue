@@ -8,9 +8,7 @@
       <Button type="primary" size="small" @click="handleCreatePdf">生成PDF</Button>
       <Button type="primary" size="small" @click="handleVerCode" :disabled="!!second">{{ btnText }}</Button>
     </Row>
-    <br>
-    <br>
-    <Table :columns="columns" :data="commits" style="width: 800px"></Table>
+    <Table :columns="columns" :data="commits"></Table>
   </div>
 </template>
 
@@ -150,10 +148,16 @@ export default {
 
 <style lang="css" scoped>
 .github {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  padding-top: 20px;
+}
+
+.ivu-table-wrapper {
+  max-width: 800px;
+  width: 100%;
+  margin: 20px auto;
+}
+
+.ivu-btn {
+  margin: 0 4px;
 }
 </style>

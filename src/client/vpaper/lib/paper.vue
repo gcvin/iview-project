@@ -28,16 +28,24 @@
         </li>
       </template>
     </ul>
-    <Button type="primary" @click="goToPrevPage" :disabled="isPreving">上一页</Button>
-    <Button type="primary" @click="goToNextPage" :disabled="isNexting">下一页</Button>
+    <ButtonGroup>
+        <Button type="primary" @click="goToPrevPage" :disabled="isPreving">
+            <Icon type="ios-arrow-back" />
+            Backward
+        </Button>
+        <Button type="primary" @click="goToNextPage" :disabled="isNexting">
+            Forward
+            <Icon type="ios-arrow-forward" />
+        </Button>
+    </ButtonGroup>
   </div>
 </template>
 
 <script>
-import { Message, Button } from 'iview'
+import { Message, ButtonGroup, Button, Icon } from 'iview'
 export default {
   name: 'paper',
-  components: { Button },
+  components: { ButtonGroup, Button, Icon },
   data () {
     return {
       page: 1,
@@ -151,20 +159,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.vpaper {
-  height: 462px;
-  overflow: hidden;
-}
-
 .vpaper .pages {
   position: relative;
-  height: 400px;
-  margin-top: 10px;
+  width: 100vw;
+  height: calc(100vw * 2 / 3);
+  max-width: 600px;
+  max-height: 400px;
+  margin: 20px 0;
+  overflow: visible;
 
   .paper {
     display: none;
     position: absolute;
     right: 0;
+    width: 50%;
+    height: 100%;
     transform-style: preserve-3d;
   }
 
@@ -209,10 +218,9 @@ export default {
   }
 
   .page {
-    width: 300px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     border: 1px solid #eee;
-    // line-height: 300px;
     text-align: center;
     background-color: #fff;
   }
@@ -265,11 +273,5 @@ export default {
       transform: perspective(1000px) rotateY(180deg);
     }
   }
-}
-
-.vpaper .ivu-btn {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  height: 32px;
 }
 </style>

@@ -1,10 +1,8 @@
 <template lang="html">
   <div class="mongo">
-    <Button type="primary" @click="handleAdd">添加用户</Button>
-    <br />
-    <br />
-    <Table :columns="columns" :data="users" style="width: 800px"></Table>
-    <Page url="?page=#num#" :current="page" :size="10" :total="total" :number="5"></Page>
+    <Button type="primary" @click="handleAdd" size="small">添加用户</Button>
+    <Table :columns="columns" :data="users"></Table>
+    <Page :current.sync="page" :page-size="10" :total="total" @on-change="getUsers" size="small"/>
     <Modal
       v-model="showModal"
       title="编辑用户"
@@ -29,8 +27,6 @@
 
 <script>
 import dayjs from 'dayjs'
-import Page from '@/components/page'
-import util from '@/libs/util'
 
 export default {
   data () {
@@ -100,6 +96,7 @@ export default {
       ],
       users: [],
       total: 0,
+      page: 1,
       rules: {
         userName: [
           { required: true, message: '姓名不能为空', trigger: 'blur' }
@@ -129,20 +126,16 @@ export default {
       isAdd: false
     }
   },
-  components: {
-    Page
-  },
-  computed: {
-    page () {
-      return Number(util.getQueryString('page') || 1)
-    }
-  },
   created () {
     this.getUsers()
   },
   methods: {
     getUsers () {
-      this.$http.get('/user/get-user' + window.location.search).then(res => {
+      this.$http.get('/user/get-user', {
+        params: {
+          page: this.page
+        }
+      }).then(res => {
         this.users = res.data.users
         this.total = res.data.total
       })
@@ -198,13 +191,16 @@ export default {
 
 <style lang="css" scoped>
 .mongo {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding-top: 20px;
 }
-.page {
-  margin-top: 20px;
+
+.ivu-table-wrapper {
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.ivu-page {
+  margin-bottom: 20px;
 }
 </style>

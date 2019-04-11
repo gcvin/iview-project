@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="upload">
-    <div class="upload-list" v-for="item in uploadList" :key="item.uid">
+    <!-- <div class="upload-list" v-for="item in uploadList" :key="item.uid">
       <template v-if="item.status === 'finished'">
         <img :src="item.url">
         <div class="upload-list-cover">
@@ -33,8 +33,8 @@
     </Upload>
     <Modal title="查看图片" v-model="visible">
       <img :src="imgUrl" v-if="visible" style="width: 100%">
-    </Modal>
-    <vpaper style="width: 600px"/>
+    </Modal> -->
+    <vpaper/>
   </div>
 </template>
 
@@ -110,9 +110,9 @@ export default {
       .get('/ajax/qnlist')
       .then(res => {
         this.defaultList = res.data.data
-        setTimeout(_ => {
-          this.uploadList = this.$refs.upload.fileList
-        }, 0)
+        // setTimeout(_ => {
+        //   this.uploadList = this.$refs.upload.fileList
+        // }, 0)
       })
       .catch(() => {
         this.$Message.error('获取七牛云图片出错！')
@@ -123,7 +123,6 @@ export default {
 
 <style lang="css" scoped>
 .upload {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,12 +4,14 @@
     <bus-child class="arrow"></bus-child>
     <div class="captcha" @click="getCaptcha" @mousemove="getPositon($event)"></div>
     <div class="double">
-      十进制加法：
-      <InputNumber v-model="addend" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber>
+      <span>十进制加法：</span>
+      <InputNumber v-model="addend" size="small" @on-change="getSumBinary"></InputNumber>
       <span class="plus">+</span>
-      <InputNumber v-model="summand" size="small" style="width: 180px" @on-change="getSumBinary"></InputNumber><br>
-      二进制求和：<Input v-model="binary" size="small" style="width: 400px"></Input><br>
-      十进制结果：<span>{{ accurate }}</span>
+      <InputNumber v-model="summand" size="small" @on-change="getSumBinary"></InputNumber><br>
+      <span>二进制求和：</span>
+      <Input v-model="binary" size="small" type="textarea" :rows="4" readonly></Input><br>
+      <span>十进制结果：</span>
+      <span>{{ accurate }}</span>
     </div>
   </div>
 </template>
@@ -148,7 +150,6 @@ export default {
 
 <style lang="less" scoped>
 .bus {
-  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -196,7 +197,7 @@ export default {
 }
 
 .captcha {
-  margin: 10px auto;
+  margin: 10px 0;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -234,7 +235,7 @@ export default {
   .plus {
     display: inline-block;
     text-align: center;
-    width: 40px;
+    width: 20px;
   }
 }
 </style>
