@@ -260,8 +260,8 @@ export default {
 }
 </script>
 
-<style lang="less">
-.video-js {
+<style lang="less" scoped>
+.video-js ::v-deep {
   position: relative;
   height: 500px;
   width: 800px;
