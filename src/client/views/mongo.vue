@@ -190,17 +190,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.mongo {
-  padding-top: 20px;
-}
-
 .ivu-table-wrapper {
   width: 100%;
   max-width: 800px;
-  margin: 20px auto;
-}
-
-.ivu-page {
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 </style>

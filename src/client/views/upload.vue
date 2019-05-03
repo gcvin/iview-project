@@ -39,7 +39,6 @@
 </template>
 
 <script>
-// import vpaper from '@/components/paper'
 import vpaper from '@/vpaper'
 import Vue from 'vue'
 Vue.use(vpaper)
@@ -52,9 +51,6 @@ export default {
       uploadList: []
     }
   },
-  // components: {
-  //   vpaper
-  // },
   methods: {
     handleView (url) {
       this.imgUrl = url
@@ -122,12 +118,6 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.upload {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
 .upload-list {
   display: inline-block;
   width: 60px;

@@ -8,10 +8,10 @@
       <Button type="primary" @click="handleStart" class="tilt">Start iView</Button>
       <br>
       <br>
-      <icon-svg icon-class="youxiang"/>
-      <Button type="info" @click="handleRecursion">递归</Button>
-      <Button type="success" @click="handlePromise">Promise</Button>
-      <Button type="warning" @click="handleAwait">Async/Await</Button>
+      <icon-svg icon-class="anquan"/>
+      <Button type="primary" @click="handleRecursion">递归</Button>
+      <Button type="primary" @click="handlePromise">Promise</Button>
+      <Button type="primary" @click="handleAwait">Async/Await</Button>
       <icon-svg icon-class="anquan"/>
     </h2>
   </div>

@@ -15,12 +15,6 @@
     <li>
       <router-link to="/upload">Upload</router-link>
     </li>
-    <!-- <li>
-      <router-link to="/cropper">Cropper</router-link>
-    </li> -->
-    <!-- <li>
-      <router-link to="/wechat">Wechat</router-link>
-    </li> -->
     <li>
       <router-link to="/youpin">Youpin</router-link>
     </li>

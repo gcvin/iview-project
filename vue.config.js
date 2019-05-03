@@ -25,7 +25,7 @@ module.exports = {
       'vue-router': 'VueRouter',
       'pdfMake': 'pdfMake',
       'html2canvas': 'html2canvas',
-      'griffith': 'Griffith'
+      'videojs': 'videojs'
     }
 
     if (isProd()) {

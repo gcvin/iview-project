@@ -147,14 +147,10 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.github {
-  padding-top: 20px;
-}
-
 .ivu-table-wrapper {
   max-width: 800px;
   width: 100%;
-  margin: 20px auto;
+  margin-top: 10px;
 }
 
 .ivu-btn {

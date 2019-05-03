@@ -175,7 +175,11 @@ export default {
 }
 
 .page {
-  display: flow-root;
   min-height: calc(100% - 48px);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 </style>
