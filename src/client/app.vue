@@ -29,7 +29,7 @@ export default {
 
       html2canvas(root, {
         scale: 1,
-        windowWidth: root.scrollWidth,
+        foreignObjectRendering: true,
         logging: false,
         proxy: '/proxy/image'
       }).then(canvas => {

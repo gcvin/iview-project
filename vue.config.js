@@ -7,7 +7,7 @@ const resolve = pathname => path.resolve(__dirname, pathname)
 
 const isProd = () => process.env.NODE_ENV === 'production'
 
-const proxy = 'https://gcvin.cn'
+const proxy = 'https://gcvin.herokuapp.com'
 
 module.exports = {
   lintOnSave: false,
