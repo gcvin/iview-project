@@ -4,56 +4,56 @@ const routers = [
     meta: {
       title: 'Home'
     },
-    component: (resolve) => require(['@/views/index.vue'], resolve)
+    component: () => import(/* webpackChunkName: "index" */ '@/views/index.vue')
   },
   {
     path: '/bus',
     meta: {
       title: 'Bus'
     },
-    component: (resolve) => require(['@/views/bus.vue'], resolve)
+    component: () => import(/* webpackChunkName: "bus" */ '@/views/bus.vue')
   },
   {
     path: '/github',
     meta: {
       title: 'Github'
     },
-    component: (resolve) => require(['@/views/github.vue'], resolve)
+    component: () => import(/* webpackChunkName: "github" */ '@/views/github.vue')
   },
   {
     path: '/mongo',
     meta: {
       title: 'Mongo'
     },
-    component: (resolve) => require(['@/views/mongo.vue'], resolve)
+    component: () => import(/* webpackChunkName: "mongo" */ '@/views/mongo.vue')
   },
   {
     path: '/upload',
     meta: {
       title: 'Upload'
     },
-    component: (resolve) => require(['@/views/upload.vue'], resolve)
+    component: () => import(/* webpackChunkName: "upload" */ '@/views/upload.vue')
   },
   {
     path: '/wechat',
     meta: {
       title: 'Wechat'
     },
-    component: (resolve) => require(['@/views/wechat.vue'], resolve)
+    component: () => import(/* webpackChunkName: "wechat" */ '@/views/wechat.vue')
   },
   {
     path: '/youpin',
     meta: {
       title: 'Youpin'
     },
-    component: (resolve) => require(['@/views/youpin.vue'], resolve)
+    component: () => import(/* webpackChunkName: "youpin" */ '@/views/youpin.vue')
   },
   {
     path: '/video',
     meta: {
       title: 'Video'
     },
-    component: (resolve) => require(['@/views/video.vue'], resolve)
+    component: () => import(/* webpackChunkName: "video" */ '@/views/video.vue')
   }
 ]
 export default routers
