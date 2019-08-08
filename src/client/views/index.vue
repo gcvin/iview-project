@@ -1,6 +1,6 @@
 <template>
   <div class="index">
-    <h1>
+    <h1 class="animated bounce">
       <img src="@/images/logo.png" height="260">
     </h1>
     <h2>
@@ -28,11 +28,9 @@ export default {
     }
   },
   mounted () {
-    VanillaTilt.init(document.querySelector('.tilt'), {
-      max: 50,
-      speed: 400
-    })
+    VanillaTilt.init(document.querySelector('.tilt'), { max: 50, speed: 400 })
     document.dispatchEvent(new Event('render-event'))
+    this.showAnimate()
     this.$http.get('/ajax/get-slogan').then(res => {
       this.slogan = res.data.slogan
     })
@@ -104,6 +102,23 @@ export default {
       return result.then(() => {
         return realResult
       })
+    },
+    isVisible (ele) {
+      if (!ele || !ele.getBoundingClientRect) return false
+      const rect = ele.getBoundingClientRect()
+      if (rect.top < window.innerHeight && rect.bottom > 0 &&
+        rect.left < window.innerWidth && rect.right > 0) {
+        return true
+      } else {
+        return false
+      }
+    },
+    showAnimate () {
+      Array.from(document.querySelectorAll('.animated:not(.running)')).forEach(ele => {
+        if (this.isVisible(ele)) {
+          ele.classList.add('running')
+        }
+      })
     }
   }
 }
@@ -111,5 +126,11 @@ export default {
 <style scoped lang="less">
 .ivu-btn {
   margin: 0 4px;
+}
+.animated {
+  animation-play-state: paused;
+}
+.running {
+  animation-play-state: running;
 }
 </style>
