@@ -1,11 +1,11 @@
 <template>
   <div class="index">
-    <h1 class="animated bounce">
+    <h1 animated class="bounceInRight">
       <img src="@/images/logo.png" height="260">
     </h1>
     <h2>
       <p style="margin-bottom: 50px">{{ slogan }}</p>
-      <Button type="primary" @click="handleStart" class="tilt">Start iView</Button>
+      <Button type="primary" @click="handleStart">Start iView</Button>
       <br>
       <br>
       <icon-svg icon-class="anquan"/>
@@ -17,7 +17,6 @@
   </div>
 </template>
 <script>
-import VanillaTilt from 'vanilla-tilt'
 import iconSvg from '@/components/icon-svg'
 export default {
   data: function () {
@@ -27,13 +26,24 @@ export default {
       slogan: ''
     }
   },
-  mounted () {
-    VanillaTilt.init(document.querySelector('.tilt'), { max: 50, speed: 400 })
-    document.dispatchEvent(new Event('render-event'))
-    this.showAnimate()
+  created () {
     this.$http.get('/ajax/get-slogan').then(res => {
       this.slogan = res.data.slogan
     })
+  },
+  mounted () {
+    // document.dispatchEvent(new Event('render-event'))
+    const box = document.querySelectorAll('[animated]')
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(item => {
+        const { target } = item
+        if (item.isIntersecting) {
+          target.classList.add('animated')
+          observer.unobserve(target)
+        }
+      })
+    })
+    box.forEach(item => observer.observe(item))
   },
   components: {
     iconSvg
@@ -102,23 +112,6 @@ export default {
       return result.then(() => {
         return realResult
       })
-    },
-    isVisible (ele) {
-      if (!ele || !ele.getBoundingClientRect) return false
-      const rect = ele.getBoundingClientRect()
-      if (rect.top < window.innerHeight && rect.bottom > 0 &&
-        rect.left < window.innerWidth && rect.right > 0) {
-        return true
-      } else {
-        return false
-      }
-    },
-    showAnimate () {
-      Array.from(document.querySelectorAll('.animated:not(.running)')).forEach(ele => {
-        if (this.isVisible(ele)) {
-          ele.classList.add('running')
-        }
-      })
     }
   }
 }
@@ -126,11 +119,5 @@ export default {
 <style scoped lang="less">
 .ivu-btn {
   margin: 0 4px;
-}
-.animated {
-  animation-play-state: paused;
-}
-.running {
-  animation-play-state: running;
 }
 </style>
