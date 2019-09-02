@@ -147,7 +147,7 @@ function Compile (el, vm) {
       if (node.nodeType === 1) {
         replaceAttr()
       }
-      if (node.childNodes && node.childNodes.length) {
+      if (node.childNodes?.length) {
         replace(node)
       }
     })

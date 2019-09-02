@@ -80,8 +80,7 @@ export default {
 
       this.isPreving = true
       prev.classList.add('current')
-      prev.previousElementSibling &&
-        prev.previousElementSibling.classList.add('prev')
+      prev.previousElementSibling?.classList.add('prev') /* eslint no-unused-expressions: "off" */
       prev.setAttribute('data-begin-animate', true)
 
       setTimeout(() => {

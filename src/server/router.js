@@ -105,7 +105,7 @@ router.get('/ajax/get-captcha', async (ctx) => {
 router.post('/ajax/ver-captcha', async (ctx) => {
   const body = ctx.request.body
   const captcha = ctx.session.captcha
-  const result = body.value.toLowerCase() === (captcha && captcha.toLowerCase())
+  const result = body.value.toLowerCase() === captcha?.toLowerCase()
 
   ctx.body = result ? '验证成功' : '验证失败'
 })
