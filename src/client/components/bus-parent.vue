@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import bus from '@/libs/bus.js'
+import bus from '@/common/bus.js'
 
 export default {
   data: function () {
@@ -22,11 +22,13 @@ export default {
   methods: {
     handleClick () {
       this.$http
-        .post('/ajax/ver-captcha', {
-          value: this.value
+        .post('/ver-captcha', {
+          data: {
+            value: this.value
+          }
         })
         .then(res => {
-          this.$Message.info(res.data)
+          this.$Message.info(res)
         })
     }
   }

@@ -39,8 +39,8 @@ export default {
   },
   methods: {
     getCaptcha () {
-      this.$http.get('/ajax/get-captcha').then(res => {
-        document.querySelector('.captcha').innerHTML = res.data
+      this.$http.get('/get-captcha').then(res => {
+        document.querySelector('.captcha').innerHTML = res
       })
     },
     getPositon (e) {

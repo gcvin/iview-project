@@ -1,11 +1,11 @@
 <template>
   <div class="index">
-    <h1>
-      <img src="@/images/logo.png" height="260">
+    <h1 animated class="bounceInRight">
+      <img src="@/assets/images/logo.png" height="260">
     </h1>
     <h2>
       <p style="margin-bottom: 50px">{{ slogan }}</p>
-      <Button type="primary" @click="handleStart" class="tilt">Start iView</Button>
+      <Button type="primary" @click="handleStart">Start iView</Button>
       <br>
       <br>
       <icon-svg icon-class="anquan"/>
@@ -17,7 +17,6 @@
   </div>
 </template>
 <script>
-import VanillaTilt from 'vanilla-tilt'
 import iconSvg from '@/components/icon-svg'
 export default {
   data: function () {
@@ -27,15 +26,24 @@ export default {
       slogan: ''
     }
   },
+  created () {
+    this.$http.get('/get-slogan').then(res => {
+      this.slogan = res.slogan
+    })
+  },
   mounted () {
-    VanillaTilt.init(document.querySelector('.tilt'), {
-      max: 50,
-      speed: 400
+    // document.dispatchEvent(new Event('render-event'))
+    const box = document.querySelectorAll('[animated]')
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(item => {
+        const { target } = item
+        if (item.isIntersecting) {
+          target.classList.add('animated')
+          observer.unobserve(target)
+        }
+      })
     })
-    document.dispatchEvent(new Event('render-event'))
-    this.$http.get('/ajax/get-slogan').then(res => {
-      this.slogan = res.data.slogan
-    })
+    box.forEach(item => observer.observe(item))
   },
   components: {
     iconSvg

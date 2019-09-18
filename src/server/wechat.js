@@ -43,7 +43,7 @@ module.exports = (socket) => {
       }
       if (params.type === 'friend') {
         const fromName = from.name()
-        const toName = to && to.name()
+        const toName = to?.name()
 
         if (room) {
           return false

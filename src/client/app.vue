@@ -151,8 +151,8 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-@import "styles/normalize.css";
-@import "styles/common.css";
+@import "assets/styles/normalize.css";
+@import "assets/styles/common.css";
 
 #app {
   height: 100%;

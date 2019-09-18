@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import bus from '@/libs/bus.js'
+import bus from '@/common/bus.js'
 
 export default {
   data: function () {
