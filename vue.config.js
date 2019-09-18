@@ -13,7 +13,12 @@ module.exports = {
   lintOnSave: false,
   productionSourceMap: false,
   devServer: {
-    proxy: proxy
+    proxy: {
+      '/api': {
+        target: proxy,
+        changeOrigin: true
+      }
+    }
   },
   outputDir: resolve(isProd() ? './src/server/public' : './dist'),
   configureWebpack: config => {
@@ -59,6 +64,7 @@ module.exports = {
         template: resolve('./src/client/public/index.html'),
         filename: isProd() ? resolve('./src/server/views/index.html') : 'index.html'
       })])
+    config.performance.set('hints', false)
   },
   pwa: {
     themeColor: '#5bbad5',

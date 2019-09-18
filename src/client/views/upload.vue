@@ -58,17 +58,17 @@ export default {
     },
     handleRemove (file) {
       this.$http
-        .get('/ajax/qndelete', {
+        .get('/qndelete', {
           params: {
             key: file.key
           }
         })
         .then(res => {
-          if (res.data.success) {
+          if (res.success) {
             const fileList = this.$refs.upload.fileList
             this.$refs.upload.fileList.splice(fileList.indexOf(file), 1)
           } else {
-            this.$Message.info(res.data.msg.name)
+            this.$Message.info(res.msg.name)
           }
         })
     },
@@ -103,9 +103,9 @@ export default {
   },
   mounted () {
     this.$http
-      .get('/ajax/qnlist')
+      .get('/qnlist')
       .then(res => {
-        this.defaultList = res.data.data
+        this.defaultList = res.data
         // setTimeout(_ => {
         //   this.uploadList = this.$refs.upload.fileList
         // }, 0)

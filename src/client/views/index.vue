@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <h1 animated class="bounceInRight">
-      <img src="@/images/logo.png" height="260">
+      <img src="@/assets/images/logo.png" height="260">
     </h1>
     <h2>
       <p style="margin-bottom: 50px">{{ slogan }}</p>
@@ -27,8 +27,8 @@ export default {
     }
   },
   created () {
-    this.$http.get('/ajax/get-slogan').then(res => {
-      this.slogan = res.data.slogan
+    this.$http.get('/get-slogan').then(res => {
+      this.slogan = res.slogan
     })
   },
   mounted () {

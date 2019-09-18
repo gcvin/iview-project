@@ -27,18 +27,18 @@ router.get('/minivue', async (ctx) => {
   renderHtml(ctx, 'minivue')
 })
 
-router.get('/ajax/get-slogan', async (ctx) => {
+router.get('/api/get-slogan', async (ctx) => {
   ctx.body = { slogan: 'Welcome to gcvin.cn!' }
 })
 
-router.get('/ajax/get-vercode', async (ctx) => {
+router.get('/api/get-vercode', async (ctx) => {
   ctx.body = {
     vercode: Math.random().toString(36).slice(2, 8),
     times: 10
   }
 })
 
-router.get('/user/get-user', async (ctx) => {
+router.get('/api/get-user', async (ctx) => {
   const page = Number(ctx.query.page) || 1
   const users = await User.find(null, null, { skip: (page - 1) * 10, limit: 10 })
   const total = await User.countDocuments()
@@ -46,27 +46,27 @@ router.get('/user/get-user', async (ctx) => {
   ctx.body = { users, total }
 })
 
-router.post('/user/remove-user', async (ctx) => {
+router.post('/api/remove-user', async (ctx) => {
   await User.deleteOne({ _id: ctx.request.body.id })
 
   ctx.body = success
 })
 
-router.post('/user/edit-user', async (ctx) => {
+router.post('/api/edit-user', async (ctx) => {
   const body = ctx.request.body
   await User.findOneAndUpdate({ _id: body._id }, body)
 
   ctx.body = success
 })
 
-router.post('/user/add-user', async (ctx) => {
+router.post('/api/add-user', async (ctx) => {
   const user = new User(ctx.request.body)
   await user.save()
 
   ctx.body = success
 })
 
-router.get('/goods/get-goods', async (ctx) => {
+router.get('/api/get-goods', async (ctx) => {
   const { page, score, count, sort, category } = ctx.query
   const filter = {
     score: { $gte: score },
@@ -87,7 +87,7 @@ router.get('/goods/get-goods', async (ctx) => {
   ctx.body = { goods, total }
 })
 
-router.get('/ajax/get-captcha', async (ctx) => {
+router.get('/api/get-captcha', async (ctx) => {
   const captcha = svgCaptcha.create({
     size: 4,
     width: 200,
@@ -102,15 +102,15 @@ router.get('/ajax/get-captcha', async (ctx) => {
   ctx.body = captcha.data
 })
 
-router.post('/ajax/ver-captcha', async (ctx) => {
+router.post('/api/ver-captcha', async (ctx) => {
   const body = ctx.request.body
   const captcha = ctx.session.captcha
-  const result = body.value.toLowerCase() === captcha?.toLowerCase()
+  const result = body.value.toLowerCase() === captcha && captcha.toLowerCase()
 
   ctx.body = result ? '验证成功' : '验证失败'
 })
 
-router.post('/ajax/qnupload', upload.single('image'), async (ctx) => {
+router.post('/api/qnupload', upload.single('image'), async (ctx) => {
   const result = await new Promise(resolve => {
     const key = '/upload/' + new Date().getTime()
     client.upload(ctx.req.file.buffer, { key }, (err, result) => {
@@ -131,7 +131,7 @@ router.post('/ajax/qnupload', upload.single('image'), async (ctx) => {
   }
 })
 
-router.get('/ajax/qnlist', async (ctx) => {
+router.get('/api/qnlist', async (ctx) => {
   const result = await new Promise(resolve => {
     client.list('/', (err, result) => {
       if (err) {
@@ -153,7 +153,7 @@ router.get('/ajax/qnlist', async (ctx) => {
   }
 })
 
-router.get('/ajax/qndelete', async (ctx) => {
+router.get('/api/qndelete', async (ctx) => {
   await new Promise(resolve => {
     client.delete(ctx.query.key, (err) => {
       if (err) {
@@ -169,7 +169,7 @@ router.get('/ajax/qndelete', async (ctx) => {
   }
 })
 
-router.get('/ajax/images', async (ctx) => {
+router.get('/api/images', async (ctx) => {
   const baseUrl = 'https://apod.nasa.gov/apod/'
   const urls = []
   let count = Number(ctx.query.pages)
@@ -195,7 +195,7 @@ router.get('/ajax/images', async (ctx) => {
   ctx.body = { urls }
 })
 
-router.get('/proxy/image', async (ctx) => {
+router.get('/api/image', async (ctx) => {
   const image = await axios({
     type: 'get',
     url: ctx.query.url,

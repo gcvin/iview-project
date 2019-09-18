@@ -81,8 +81,8 @@ export default {
   },
   created () {
     let branchURL = 'https://api.github.com/repos/gcvin/iview-project/branches'
-    this.$http.get(branchURL).then(respose => {
-      this.branches = respose.data
+    this.$http.get(branchURL).then(res => {
+      this.branches = res
       this.getCommits()
     })
   },
@@ -96,8 +96,8 @@ export default {
       let commitURL = `https://api.github.com/repos/gcvin/iview-project/commits?per_page=${
         this.size
       }&sha=${this.currentBranch}`
-      this.$http.get(commitURL).then(respose => {
-        this.commits = respose.data
+      this.$http.get(commitURL).then(res => {
+        this.commits = res
       })
     },
     handleCreatePdf () {
@@ -128,10 +128,10 @@ export default {
       pdfMake.createPdf(docDefinition).open()
     },
     handleVerCode () {
-      this.$http.get('/ajax/get-vercode').then(res => {
-        this.$Message.info('验证码：' + res.data.vercode)
+      this.$http.get('/get-vercode').then(res => {
+        this.$Message.info('验证码：' + res.vercode)
 
-        let timesRun = res.data.times
+        let timesRun = res.times
         this.second = timesRun
         let interval = setInterval(_ => {
           timesRun -= 1

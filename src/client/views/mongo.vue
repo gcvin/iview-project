@@ -131,13 +131,13 @@ export default {
   },
   methods: {
     getUsers () {
-      this.$http.get('/user/get-user', {
+      this.$http.get('/get-user', {
         params: {
           page: this.page
         }
       }).then(res => {
-        this.users = res.data.users
-        this.total = res.data.total
+        this.users = res.users
+        this.total = res.total
       })
     },
     handleEdit (user) {
@@ -156,8 +156,10 @@ export default {
         title: '确认删除',
         content: '确认删除该用户的信息？',
         onOk: () => {
-          this.$http.post('/user/remove-user', { id }).then(res => {
-            if (res.data.success) {
+          this.$http.post('/remove-user', {
+            data: { id }
+          }).then(res => {
+            if (res.success) {
               this.$Message.success('删除成功!')
               this.getUsers()
             } else {
@@ -170,10 +172,12 @@ export default {
     handleEditSave () {
       this.$refs['editUser'].validate(valid => {
         if (valid) {
-          let url = this.isAdd ? '/user/add-user' : '/user/edit-user'
+          let url = this.isAdd ? '/add-user' : '/edit-user'
           let message = this.isAdd ? '添加' : '编辑'
-          this.$http.post(url, this.editUser).then(res => {
-            if (res.data.success) {
+          this.$http.post(url, {
+            data: this.editUser
+          }).then(res => {
+            if (res.success) {
               this.$Message.success(message + '成功!')
               this.getUsers()
             } else {

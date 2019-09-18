@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import iView from 'iview'
 import VueRouter from 'vue-router'
-import axios from 'axios'
 import Routers from '@/router'
-import Util from '@/libs/util'
+import Util from '@/common/util'
+import http from '@/common/http'
 import App from '@/app.vue'
 import animated from 'animate.css'
-import '@/libs/register'
+import '@/common/register'
+import '@/mock'
 
 Vue.config.devtools = true
-Vue.prototype.$http = axios
+Vue.prototype.$http = http
 Vue.use(VueRouter)
 Vue.use(iView)
 Vue.use(animated)
@@ -23,10 +24,6 @@ const router = new VueRouter(RouterConfig)
 router.beforeEach((to, from, next) => {
   Util.title(to.meta.title)
   next()
-})
-
-router.afterEach((to, from, next) => {
-  window.scrollTo(0, 0)
 })
 
 /* eslint-disable no-new */

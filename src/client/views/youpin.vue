@@ -65,11 +65,11 @@ export default {
   methods: {
     getGoods () {
       const { page, sort, count, score, category } = this
-      this.$http.get('/goods/get-goods', {
+      this.$http.get('/get-goods', {
         params: { page, sort, count, score, category }
       }).then(res => {
-        this.goods = res.data.goods
-        this.total = res.data.total
+        this.goods = res.goods
+        this.total = res.total
       })
     }
   }
@@ -78,7 +78,7 @@ export default {
 
 <style lang="less" scoped>
 .youpin {
-  background: url(../images/bg-right.png) center right no-repeat #F2F2F2;
+  background: url(../assets/images/bg-right.png) center right no-repeat #F2F2F2;
 
   .filter {
     margin-bottom: 10px;
